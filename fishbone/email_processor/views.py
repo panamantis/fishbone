@@ -16,6 +16,10 @@ from django.views.decorators.csrf import csrf_exempt
 from beautifulsoup import BeautifulSoup
 
 
+
+#http://localhost:8080/handler/debug_parser
+
+
 class NestedDict(dict):
     def __getitem__(self, key):
         if key in self: return self.get(key)
@@ -312,9 +316,8 @@ def extract_record(text,html):
 	the_split=text.splitlines()
 	for line in the_split:
 	    logging.info(">>>>>>>>>>" +str(line))
-	    if (re.search('Full name',line):
-	        line=re.sub(r'*','',line)
-	        line=re.sub(r'*','',line)
+	    if (re.search('Full name',line)):
+	        line=re.sub(r'\*','',line)
 	        m=re.search('Full name: (.*)',line)
         	if m:
 		    dat['Name']=m.group(1)
