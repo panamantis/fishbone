@@ -1,5 +1,5 @@
 application: cguardianmarketing
-version: 1
+version: 3
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -10,6 +10,21 @@ builtins:
 handlers:
 - url: /static
   static_dir: static
+  
+- url: /css
+  static_dir: static/css/
+
+- url: /images
+  static_dir: static/images/
+  
+- url: /img
+  static_dir: static/images/
+  
+- url: /js
+  static_dir: static/js/
+  
+- url: /fashion
+  static_dir: static/fashion/
 
 - url: /favicon.ico
   static_files: static/assets/img/icons/favicon.ico
@@ -49,6 +64,7 @@ handlers:
 
 - url: /.*
   script: main.application
+  
 
 inbound_services:
 - mail
