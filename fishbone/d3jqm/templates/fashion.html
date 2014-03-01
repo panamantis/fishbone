@@ -2,7 +2,7 @@
 <html class="wf-nytcheltenham-n2-active wf-nytcheltenham-n7-active wf-nytkarnakdisplay130124-n4-active wf-nytfranklin-n3-active wf-nytfranklin-n5-active wf-active"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-<title>Front Row to Fashion Week - Interactive Feature - NYTimes.com</title>
+<title>Card Sorter</title>
 <meta name="robots" content="noarchive">
 <meta name="viewport" content="width=1100">
 <meta name="dat" content="September 13, 2013">
@@ -123,7 +123,7 @@ a:hover {
   font-family: "nyt-cheltenham", "NYTCheltenham-ExtraLight", Georgia, sans-serif;
   font-style: normal;
   font-weight: 200;
-  margin-top: 65px;
+  margin-top: 0px;
   margin-bottom: 0;
   color: white;
   font-size: 50px;
@@ -413,21 +413,26 @@ body {
 </style>
 <![endif]-->
 
-<script src="/fashion/js/jse7tmw.js"></script>
-<style type="text/css">.tk-nyt-cheltenham{font-family:"nyt-cheltenham",sans-serif;}.tk-nyt-karnak-display-130124{font-family:"nyt-karnak-display-130124",sans-serif;}.tk-nyt-franklin{font-family:"nyt-franklin",sans-serif;}</style><link href="/fashion/css/jse7tmw-d.css" rel="stylesheet"><script type="text/javascript">try { Typekit.load(); } catch (e) {}</script>
+<script src="/static/fashion/js/jse7tmw.js"></script>
+<style type="text/css">.tk-nyt-cheltenham{font-family:"nyt-cheltenham",sans-serif;}.tk-nyt-karnak-display-130124{font-family:"nyt-karnak-display-130124",sans-serif;}.tk-nyt-franklin{font-family:"nyt-franklin",sans-serif;}</style><link href="/static/fashion/css/jse7tmw-d.css" rel="stylesheet"><script type="text/javascript">try { Typekit.load(); } catch (e) {}</script>
+<script src="/static/fashion/js/d3_lib.js"></script>
+<script src="/static/js/jquery-1.11.0.min.js"></script>
 
 
 </head>
+
+
 <body data-twttr-rendered="true">
 
+
+
 <div class="header">
-  <h1>Front Row</h1>
+  <h1>Hydro Dataset Sorter</h1>
   <div class="dateline">
-    <div class="byline">By <span>Mike</span></div>
-    <div class="date">September 12, 2013</div>
+    <div class="byline">By <span>Jon</span></div>
+    <div class="date">February 28, 2014</div>
   </div>
-  <p class="header-summary">Of the more than 300 collections shown 
-during New York Fashion Week, here were the ones that created the most 
+  <p class="header-summary">Based off geo-spatial data, this interface allows you to construct.
   </p><p><a id="fullscreen" href="#" style="">View Full Screen</a>
   </p>
 </div>
@@ -440,27 +445,27 @@ during New York Fashion Week, here were the ones that created the most
 <!--         <canvas width="693" style="height: 225px; width: 693px;" height="225"></canvas></a> -->
         
         <div class="description">
-        <h3>Michael Kors</h3>
-        <p>Sometimes fashion is all about timing. His conservative-chic clothes, including navy blazers, cuffed denim shorts and belted full-skirted dresses, sounded an optimistic note. </p>
+        <h3>Hydro</h3>
+        <p>Hydro electric readings. </p>
         <p class="related">Read more: <a href="http://runway.blogs.nytimes.com/2013/09/11/michael-kors-doesnt-break-a-sweat/">Michael Kors Doesnâ€™t Break a Sweat</a>
         <!-- <p><a href="http://www.nytimes.com/fashion/runway/michael-kors/spring-2014-rtw/1?fingerprint=true">View Collection</a> -->
       </p></div>
       
       <ul style="width: 693px;" class="annotations">
         <li data-range="[0,0]" style="left:0px;width:13px;">
-          <div class="annotation">A woven bag resembling a rolled-up doormat</div>
+          <div class="annotation">Note the details of this card</div>
           <div class="annotation-bar"></div>
         </li>
         <li data-range="[10,10]" style="left:132px;width:13px;">
-          <div class="annotation">A sky blue dress shirt ringed with cloudlike fluffy white fox</div>
+          <div class="annotation">This element highlights the benefit of open data</div>
           <div class="annotation-bar"></div>
         </li>
         <li data-range="[26,26]" style="left:345px;width:13px;">
-          <div class="annotation">Superwide lounge pants</div>
+          <div class="annotation">This card was a custom creation</div>
           <div class="annotation-bar"></div>
         </li>
         <li data-range="[42,42]" style="left:558px;width:13px;">
-          <div class="annotation">A grass-colored bikini was embroidered with white daisies</div>
+          <div class="annotation">This item is controversial.</div>
           <div class="annotation-bar"></div>
         </li>
       </ul>
@@ -470,12 +475,11 @@ during New York Fashion Week, here were the ones that created the most
     
 <div class="footer">
   <div class="footer-content">
-    Photos by Nowfashion.com
+    Elements sourced from Hydro Electric Dataset
   </div>
 </div>
 
 <!--[if gt IE 8]><!-->
-<script src="/fashion/js/d3_lib.js"></script>
 <script>(function() {
 
 var width,
@@ -493,7 +497,8 @@ var collection = graphic.selectAll(".collection")
 
 var canvas = collection
      .insert("a", ".description")
-     .attr("href", function(d) { return "http://www.nytimes.com/fashion/runway/" + d.slug + "/spring-2014-rtw/1?fingerprint=true"; })
+//     .attr("href", function(d) { return "http://www.nytimes.com/fashion/runway/" + d.slug + "/spring-2014-rtw/1?fingerprint=true"; })
+     .attr("id", "the_canvas")
      .append("canvas");
 
 var pixelRatio = 1,
@@ -713,7 +718,7 @@ function enableFisheye(d) {
   function mousedown() {
     var m = Math.max(0, Math.min(width - 1e-6, d3.mouse(that)[0]));
     for (var i = 0, n = d.size; i < n && x(i * normalWidth) < m; ++i);
-    link.href = "http://www.nytimes.com/fashion/runway/" + d.slug + "/spring-2014-rtw/" + i + "?fingerprint=true";
+//    link.href = "http://www.nytimes.com/fashion/runway/" + d.slug + "/spring-2014-rtw/" + i + "?fingerprint=true";
   }
 
   function touchstart() {
@@ -721,7 +726,8 @@ function enableFisheye(d) {
     mouseover();
     if (d3.event.touches.length === 1) {
       var now = Date.now();
-      if (now - touchtime < 500) mousedown(), link.click();
+//      if (now - touchtime < 500) mousedown(), link.click();
+      if (now - touchtime < 500) mousedown();
       touchtime = now;
     }
   }
@@ -765,10 +771,159 @@ function fisheye() {
 }
 
 })();</script>
-<!--<![endif]-->
+
+<style>
+#svg_element{
+transform: translate(0px,0px);
+-ms-transform: translate(0px,0px); /* IE 9 */
+-webkit-transform: translate(0px,0px); /* Safari and Chrome */
+-o-transform: translate(0px,0px); /* Opera */
+-moz-transform: translate(0px,0px); /* Firefox */
+z-index:99999;
+position:absolute;
+top:0;
+left:0;
+}
+</style>
 
 
-<script async="" src="/fashion/js/widgets.js"></script>
-<!-- jc <script async="" src="/fashion/js/all.js"></script> -->
-<!-- jc <script async="" src="/fashion/js/adxrun.html"></script> -->
-<!-- jc <script async="" src="/fashion/js/trackingTags_v1.js"></script> -->
+<div id="svg_layer">
+<script>
+ // Get size of window
+ var nodes9=[]
+ b = {id: "xxx",x:0,y:0,value:"0"}
+ nodes9.push(b);
+ 
+ var svg_width = window.innerWidth;
+ var svg_height = window.innerHeight;
+// svg_width=300;
+// svg_height=300;
+
+ var svgContainer = d3.select("body").append("svg")
+                                     .attr("id", "svg_element")
+                                     .attr("width", svg_width)
+                                     .attr("height", svg_height)
+//                                     .style("pointer-events","none")
+                                     .style("pointer-events","none")
+                                     ;
+ var svgG=svgContainer.selectAll('svg')
+                .data(nodes9)
+            .enter().append("g")
+                .attr("id","container_sheet");
+                
+                
+ var svgCard=svgContainer.selectAll('svg')
+                .data(nodes9)
+            .enter().append("g")
+                .style("display","none")
+                .attr("id","container_card");
+ var svgScore=svgContainer.selectAll('svg')
+                .data(nodes9)
+            .enter().append("g")
+                .attr("id","container_score")
+                .attr("display","none");
+.text(function(d) { 
+                                temp="";
+                                if (d.value>=0) { temp="+";}
+                                else { temp="-"; }
+                                return temp+d.value;}) 
+
+ var rect_card = svgCard.append("rect")
+                            .attr("x", -50)
+                            .attr("y", -100)
+                            .attr("width", 100)
+                            .attr("height", 200)
+                            .style("fill", function(d) { return "grey"; })
+                            .style("opacity", "0.3")
+                            ;
+                         
+ var rect_background = svgG.append("rect")
+                            .attr("x", 0)
+                            .attr("y", 0)
+                            .attr("width", svg_width)
+                            .attr("height", svg_height)
+                            .style("fill", function(d) { return "yellow"; })
+                            .style("opacity", "0")
+                            ;
+                            
+ var text_score= svgScore.append("svg:text")
+                         .attr("id", "the_score")
+                         .text(function(d) { 
+                                temp="";
+                                if (d.value>=0) { temp="+";}
+                                return temp+d.value;})
+                         .attr("dx", function(d) { return -d.value.length;})
+                         .attr("dy", function(d) { return 0;})
+//                         .attr("dy", function(d) { return -d.size/2-4;})
+                         .style("fill",function(d) { return "white";})
+                         .style("font-size","44px");
+ d3.select("#container_score").attr("transform", function(d) { return "translate(" + svg_width/2 + ", 180)"; });    
+     
+                        
+                        
+                            
+                            
+$('#the_canvas').on('mousedown', function(event){
+    //    event.stopPropagation();
+    $('#svg_element').css("pointer-events","all");
+});
+
+$('#svg_element').on('mouseup', function(event){
+    $('#svg_element').css("pointer-events","none");
+    $('#container_card').css("display","none");
+    $('#container_score').css("display","none");
+});
+
+
+function translate_to_xy(the_translate) {
+   var element2=the_translate
+   var splittedd = element2.split(",");
+   var xx2 = ~~splittedd [0].split("(")[1];
+   var yy2 = ~~splittedd [1].split(")")[0];
+   return {x: xx2, y: yy2};
+}
+
+
+function move(mouse) {
+    d3.select("#container_card") .attr("transform", function(d) { return "translate(" + mouse[0] + "," + mouse[1] + ")"; });    
+  }
+
+
+svgContainer.on("mousemove", function() {
+    var mouse = d3.mouse(this);
+    move(mouse);
+    
+    $('#container_card').css("display","block");
+    $('#container_score').css("display","block");
+    
+//works    d3.select("#the_score").text(function(d) { return "ok";}) 
+                                
+    $('#the_score').text(function() { 
+//                                text=parseInt(d3.mouse(this)[0]);
+//                                text=parseInt(svg_width/2-d3.mouse(this)[0]);
+                                maxi=svg_width/2-10;
+                                percent=d3.mouse(this)[0]/maxi*100;
+                                if (percent>100) { percent=100;}
+                                text=parseInt(percent);
+                                temp="";
+                                if (text>=0) { temp="+";}
+                                else { temp=""; }
+                                return temp+text;});
+                                
+    
+});
+
+
+//################## TEXT DIGIT
+
+
+
+
+
+</script>
+</div>
+
+
+
+
+</body>
