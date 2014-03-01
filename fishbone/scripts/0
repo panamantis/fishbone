@@ -1,0 +1,198 @@
+<html class="wf-ocrastd-n4-active wf-sommetrounded-n4-active wf-sommetrounded-n7-active wf-sommetrounded-n8-active wf-sourcesanspro-n3-active wf-sourcesanspro-n4-active wf-sourcesanspro-n7-active wf-sourcesanspro-n9-active wf-active" lang="en"><head><META content="IE=10.000" http-equiv="X-UA-Compatible">
+  	<meta charset="utf-8">
+
+  	<!-- Set the viewport width to device width for mobile -->
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  	<title>
+          Kiran Madala
+
+        |
+      Canadian Open Data Experience
+    </title>
+
+  	<link href="/assets/application-5aa93f01c82993a4887b710a46d38e10.css" rel="stylesheet" media="screen">
+    <link href="/assets/code/application-3aa92a8e58ec00981fa4eff3ae430046.css" rel="stylesheet" media="screen">
+    <!--[if IE]>
+    <link href="/assets/ie-b2ae6d22c1b2a0069f83e1f16ed043e7.css" media="screen" rel="stylesheet" />
+    <![endif]-->
+    <script src="//www.google-analytics.com/analytics.js" async=""></script><script src="/assets/application-ca1cfc56bf46d4e5477082fa0238e488.js"></script><meta class="foundation-mq-small"><meta class="foundation-mq-medium"><meta class="foundation-mq-large"><style></style>
+    <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="OFv2azQLgrVCOUxzqyyMrigZ6FUhzBxairxZX8BzwRE=">
+
+
+    <script src="//use.typekit.net/jka1ger.js" type="text/javascript"></script>
+    <style type="text/css"></style><link href="https://use.typekit.net/c/a6bbc2/ocr-a-std:n4,sommet-rounded:n4:n7:n8,source-sans-pro:n3:n4:n7:n9.XcX:N:2,WmN:N:2,WmQ:N:2,WmS:N:2,Xw3:N:2,Xw5:N:2,Xvy:N:2,Xvw:N:2/d?3bb2a6e53c9684ffdc9a9ef5125b2a62b868467eabfe42357c40ffaa1c36800405e8297c35126f41bf54d7c0079f64cad24d079b58b5862bd8696a4b79378eae3e667e471f47964704357ddb7021de938d563f9c525eeb2f22cf4bcd35f7b3b58b27ae86456589e786e47798bc45af8b5aa0f2708cbf25c0cf304026c6079241bd7893f0b75a4ad9559a84412ada851f76f02877c47ad9d5f9aad23f6477895cab0ce451e2146e48ce5764685feeb6c1842a73dd6f7e8783df28c0332158bf5a2f5cd6cd999da67a70e3e4ab7ff3ae0e8ebf8e39bd40d95f1d2a1cf27895e4c19b86a72f453faff91fa08f3ea035625e76a9f6c217d74fb35e65e16566c1a019d6787bc90ed4f8b779f0f073c9f43581a120041507a0fb78d097ca0f3770fb305ffe9b2fd7f4adec8d35bf391d02b930755f0d16ce8b553b559caf5360985ebffc0c0d6770917f0f7da0772bd1660f77f4255535a90356a942c60e08b6ed6a270699b0bbc5c6ea3c554ccd93a715653085596f2c7c2e0614efce0b9ea5eb1a223a27ee4ec811b9e2527bf4c978e52f60e84697064e32461e4e6fbd3f85ed24546cf48e72411a8f437944cde96c7ba7ea7d6b4e97f1db" rel="stylesheet"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+    <script src="//w.sharethis.com/button/buttons.js" type="text/javascript"></script>
+    <script type="text/javascript">stLight.options({publisher: "b813f7a5-6dbf-4cfd-95dd-0475f3ab4f79", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+    <script src="//maps.googleapis.com/maps/api/js?key=&amp;sensor=false" type="text/javascript"></script><script src="https://maps.gstatic.com/intl/en_ca/mapfiles/api-3/16/1/main.js" type="text/javascript"></script>
+  </head>
+
+  <body class="users--users-show layout-code">
+
+    
+    
+
+    <div id="wrap">
+      <header id="main-header">
+  <div class="row">
+
+    <div id="mobile-menu">
+      <nav class="stacked-nav">
+        <a href="/news">News</a>
+          <a href="/pages/competition">Competition</a>
+          <a href="/pages/contact">Contact</a>
+          <a href="/pages/media">Media </a>
+          <a href="/pages/sponsors">Sponsors </a>
+              <a href="/teams/dashy">Team Profile</a>
+          <a href="/teams">Teams</a>
+          <a href="/hubs">Hubs</a>
+          <a href="/participants">Participants</a>
+          <a href="/users/search">User Search</a>
+      </nav>
+      <div class="clearfix" id="mobile-account-information">
+        <div class="right"><a class="locale-switcher" href="/?locale=fr">Français</a>
+  <span class="user-name"><a href="/users/profile/719">Welcome Jon Clement!</a></span>
+  <a class="button" href="/users/sign_out" rel="nofollow" data-method="delete">Sign Out</a>
+</div>
+      </div>
+    </div>
+
+    <h1 class="left easyclick logo-en"><a href="/">Canadian Open Data Experience</a></h1>
+    <nav class="left hide-for-small" id="main-nav">
+      <a href="/news">News</a>
+        <div class="dropdown">
+          <a href="/pages/competition">Competition</a>
+          <nav class="stacked-nav">
+              <a href="/pages/coding-resources">Coding Resources </a>
+              <a href="/pages/frequently-asked-questions">Frequently Asked Questions </a>
+              <a href="/pages/judging">Judging </a>
+              <a href="/pages/prizes">Prizes</a>
+              <a href="/pages/rules">Rules</a>
+          </nav>
+        </div>
+        <div class="dropdown">
+          <a href="/pages/contact">Contact</a>
+          <nav class="stacked-nav">
+          </nav>
+        </div>
+        <div class="dropdown">
+          <a href="/pages/media">Media </a>
+          <nav class="stacked-nav">
+          </nav>
+        </div>
+        <div class="dropdown">
+          <a href="/pages/sponsors">Sponsors </a>
+          <nav class="stacked-nav">
+          </nav>
+        </div>
+        <div class="dropdown">
+          <a href="/teams">Teams</a>
+          <nav class="stacked-nav">
+                <a href="/teams/dashy">Team Profile</a>
+            <a href="/teams/matchmaker">Matchmaker</a>
+            <a href="/hubs">Hubs</a>
+            <a href="/participants">Participants</a>
+            <a href="/users/search">User Search</a>
+          </nav>
+        </div>
+    </nav>
+    <div class="right hide-for-small" id="account-information">
+      <a class="locale-switcher" href="/?locale=fr">Français</a>
+  <span class="user-name"><a href="/users/profile/719">Welcome Jon Clement!</a></span>
+  <a class="button" href="/users/sign_out" rel="nofollow" data-method="delete">Sign Out</a>
+
+    </div>
+    <a class="expand-menu js-expend-menu show-for-small" href="javascript:void(0)">
+      <i class="icon icon-show_lines"></i>
+</a>  </div>
+</header>
+
+
+<div class="row unfilled" id="main">
+
+  <section class="small-16 large-14 large-offset-1 columns" id="content">
+    
+<div class="tiny reveal-modal" id="invite-sent">
+  <h3>Your invitation has been sent</h3>
+  <p>The user will receive an email notifying them of your invitation</p>
+  <div class="text-center">
+    <a class="button close-reveal-modal-custom" href="javascript:void(0)">Close</a>
+  </div>
+</div>
+
+<div class="row">
+  <aside class="large-5 columns">
+    <img class="logo" alt="50b5666a59168c0cb36128cd6db868bb?s=250" src="http://www.gravatar.com/avatar/50b5666a59168c0cb36128cd6db868bb?s=250">
+    <h3>Programmer</h3>
+      
+
+    
+
+    <h3 class="alt">Email</h3>
+    <a href="mailto:kiran.madala@outlook.com" target="_blank">kiran.madala@outlook.com</a>
+
+    <div class="share-buttons">
+  <span class="st_googleplus_button" displaytext="Google +"></span>
+  <span class="st_facebook_button" displaytext="Facebook"></span>
+  <span class="st_twitter_button" displaytext="Tweet"></span>
+</div>
+
+
+  </aside>
+  <div class="large-11 columns">
+    <h2>Kiran Madala</h2>
+    <h3>Skura</h3>
+      <h3 class="alt">Past Experience</h3>
+      <p>Programming Languages: Java, C#, VB.NET, C++, JSP, Java Script, SQL, XML.</p>
+
+<p>Technologies: J2EE, .NET, AJAX.</p>
+
+<p>Standards: HL7, DICOM, SOAP.</p>
+
+<p>Database: MS SQL Server, MySQL, DB2.</p>
+
+<p>Frameworks: Spring, ASP.NET MVC, LINQ, Hibernate, NHibernate, JQuery, JUnit, NUnit.</p>
+
+<p>API: Paypal API, Windows API, ISAPI, JDBC, ADO.NET.</p>
+
+<p>Development Tools: Eclipse, NetBeans, Visual Studio.</p>
+
+<p>Operating Systems: Windows, Linux.</p>
+  </div>
+</div>
+
+  </section>
+
+</div>
+
+<footer id="main-footer">
+  <div class="row">
+    <p class="left">Copyright © 2014 XMG Studio Inc.</p>
+    <nav class="right">
+        <a href="/pages/privacy-policy">Privacy Policy </a>
+        <a href="/pages/terms-of-service">Terms of Service</a>
+      <a class="locale-switcher" href="/?locale=fr">Français</a>
+    </nav>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44772319-1', 'canadianopendataexperience.com');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+</body></html>

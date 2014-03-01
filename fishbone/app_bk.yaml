@@ -1,0 +1,158 @@
+#application: newsflydev
+#application: panamantis # Only for launching
+#application: truthhost
+application: truthkit-hdr
+
+# LOGGING:
+# truthhost.3 works
+# truthhost.4 new ios splash screen
+# truthhost.5 April 1, 2012:  New TruthKit page layout.  May have issues?
+# truthhost.6 April 5, 2012:  More complete pages.  Updated website fireworks style pages.
+# truthhost.5 April 5, 2012:  Add some more buttons
+# truthhost.6 April 11, 2012:  Occupy style email processor etc. (new models, new layouts too)
+# truthhost.7 April 18, 2012:  New Learning page etc.
+# truthhost.8 April 18, 2012:  New iPhone minimal js/css
+# truthhost.9 April 19, 2012:  Feedback button on each page
+# truthhost.1 April 19, 2012:  New web engagement layout.
+# truthhost.2 April 23, 2012:  GPS/geo buttons and supporting index tables (Need more thorough test!).
+# truthhost.3 April 23, 2012:  View Concepts on google maps
+# truthhost.4 April 30, 2012:  Mobile: localStorage hash, cache-manifest
+# truthhost.5 May 1, 2012:     jQuery mobile site
+# truthhost.6 May 28, 2012:    New MatchMaker and google_places_api
+# truthhost.7 May 29, 2012:    Concept Check-in and toolkit injection
+# truthhost.8 May 30, 2012:    New user registration injection on mobile
+# truthhost.9 June 5, 2012:    jQM updates, concept/tool sync code (changes to root update)
+# truthhost.1 June 11, 2012:   T520 migration
+# truthhost.2 June 13, 2012:   T520 migration and jQM updates (including TagTree embedded)
+# truthhost.3 June 18, 2012:   model.py listfield upgrade (was saving as string!)
+# truthhost.4 June 18, 2012:   Updated panamantis.com and bug patches.
+# truthhost.5 June 19, 2012:   Update Concepts from button_name string to mytools listview
+# truthhost.6 June 22, 2012:   truthkit_internals, listfields, appstats
+# truthhost.7 June 25, 2012:   excel interface and tool_radar
+# truthhost.8 June 28, 2012:   Lots of updates (including mail attachment processing)
+# truthhost.9 June 29, 2012:   Email attachments to Concepts
+# truthhost.1 June 30, 2012:   Email attachments to Concepts
+# truthhost.2 July 3, 2012:    Email indexerror bug patch
+# truthhost.3 July 3, 2012:    Verify fsm1 cleaner (tt_dev)
+# truthhost.4 July 3, 2012:    Added remove_dict_from_request (could cause more problems later)
+# truthhost.5 July 4, 2012:    Many patches
+# truthhost.6 July 5, 2012:    Upgrade to 'update', added handlers for next_actions
+# truthhost.7 July 8-10, 2012:    api_post_update issue one sync to server. Index update for type.category1.timestamp
+# truthhost.8 July 10, 2012:   Post index.
+# truthhost.9 July 13, 2012:   New jQM 1.1.1
+# truthhost.1 July 17, 2012:   New animated gif and fireworks & olark plugin.
+# truthhost.2 July 25, 2012:   User Cron was causes error, so removed (for debugging), httpproxy syncdb, 
+# truthhost.3 July 26, 2012:   jQM UI upgrade (possibly some margin spilling)
+# truthhost.4 Aug 15, 2012:    Small update to jQM thumbnails
+# truthhost.5 Aug 16, 2012:    Profile image upload
+# truthhost.6 Aug 16, 2012:    Generic MapReduce engine
+# truthhost.7 Aug 21, 2012:    Update to jQM for concept editing, modified db update routines (watch!)
+# truthhost.8 Aug 23, 2012:    Daily dev update (need to verify 7 works)
+# truthhost.9 Aug 23, 2012:    Add SMS support
+# truthhost.1 Aug 27, 2012:    Updates
+# truthhost.2 Aug 27, 2012:    RSS Concepts and slideshow images
+# truthhost.3 Aug 27, 2012:    jQM UI tweaks
+# truthhost.4 Aug 30, 2012:    Background google places & image Concept crawler.  BB MobileFriendly version.
+# truthhost.5 Aug 31, 2012:    BB UI.  URL hiding.
+# truthhost.6 Sept 4, 2012:    Generic updates (Email server tweaking not working on dev)
+# truthhost.7 Sept 6, 2012:    McDonalds
+# truthhost.8 Sept 7, 2012:    Potential bug created previously (or now) on post_to_create esp in email parser
+# truthhost.9 Sept 10, 2012:   Added MontyLingua
+# truthhost.1 Sept 13, 2012:   jQM & MontyLingua. Tag creator (from nouns) and proper research.xls upload ability
+# truthhost.2 Sept 13, 2012:   tt_network and concept_id normalization (for IPs, people etc).
+# truthhost.1 Sept 15, 2012:   Added jq back to gmaps
+# truthhost.3 Sept 18, 2012:   Bug snuck through in '2' (concept id normalizer)
+# truthhost.4 Sept 18, 2012:   crawl_people looking for linkedin profiles to create (OPEN to verify)
+# truthhost.5 Sept 18, 2012:   Emails should now point to sender Concept
+# truthhost.6 Sept 18, 2012:   User model.  myfield added (for ID for joining)
+# truthhost.7 Sept 21, 2012:   New mymatches and updates to bdev product & customer (temp bug on email processing)
+# truthhost.8 Sept 24, 2012:   Upgrade to email settings (verify registration email works)
+# truthhost.9 Sept 26, 2012:   Competitor research & analysis integration
+# truthhost.1 Sept 28, 2012:   Competitor research & analysis integration
+# truthhost.2 Oct 3, 2012:     jQM 1.2.0
+# truthhost.3 Oct 4, 2012:     js caching and post loading of map stuff
+# truthhost.4 Oct 7, 2012:     Generic
+# truthhost.5 Oct 8, 2012:     Demo & bdev processes
+# truthhost.6 Oct 9, 2012:     Ran through fireworks
+# truthhost.7 Oct 10, 2012:    Deploy new jQM ui for demo
+# truthhost.8 Oct 10, 2012:    iOS demo in Webpage TruthKit
+# truthhost.9 Oct 15, 2012:    Demo login management.
+# truthhost.1 Oct 17, 2012:    HDR MIGRATION!
+# truthhost.2 Oct 17, 2012:    GAE update to 1.6.2. Djangoappengine to today
+#                               - app.yaml removed datastore_admin
+#                               - djangoappengine/boot.py (kept 'old' one...import issues)
+#                                                 main (think kept this too?!)
+# truthhost.3 Oct 17, 2012:    Python 27
+
+version: 3
+runtime: python #27   # 27
+api_version: 1
+threadsafe: no       #yes requires proper upgrade of djangoappengine main/handler & instructions
+
+default_expiration: '365d'
+
+builtins:
+- remote_api: on
+# datastore_admin depreciated#
+# how to enable it through the Administrative Console here: http://code.google.com/appengine/docs/adminconsole/datastoreadmin.html
+#- datastore_admin: on
+- appstats: on
+
+inbound_services:
+- warmup
+- mail
+
+handlers:
+
+- url: /jqtouch
+  static_dir: static/jqtouch/
+  
+- url: /fantasm.*
+  script: fix_fantasm.py
+#JC July 3, 2012-- can't login admin programatically#   login: admin
+# Patch, associate/manually login with gmail account
+#from google.appengine.api import users
+#user = users.get_current_user()
+#email = user.email()
+  
+- url: /favicon.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon.ico
+
+- url: /remote_api
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
+
+- url: /_ah/queue/deferred
+  script: djangoappengine/deferred/handler.py
+  login: admin
+
+- url: /css
+  static_dir: static/css/
+
+- url: /images
+  static_dir: static/images/
+  
+- url: /js
+  static_dir: static/js/
+
+- url: /.*
+  script: djangoappengine/main/main.py
+
+- url: /media/admin
+  static_dir: django/contrib/admin/media/
+
+- url: /media
+  static_dir: _generated_media/
+  expiration: '365d' 
+  
+#- url: /_ah/mail/.+ 
+#  script: interfaces/handle_incoming_email.py 
+#  login: admin
+
+# Set mimetype
+- url: /cache.manifest
+  static_files: cache.manifest
+  mime_type: text/cache-manifest
+  upload: cache.manifest
+    

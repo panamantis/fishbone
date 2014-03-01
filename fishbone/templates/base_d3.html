@@ -1,0 +1,232 @@
+{% extends 'base_truth.html' %}
+<!-- Encapsulate requirements for basic d3 page -->
+<!-- REVISIONS -->
+<!-- JC Feb  7, 2014 -  Encapsulate d3 generic back to stand alone html
+<!-- JC Jan 29, 2014 -  Pass detailed D3 parameters for customization as js variables -->
+
+{% block d3-load_main_js %} <!-- head -->
+    <script>
+        // Custom JS Configuration variables from Django
+        {% for key,value in the_dict.items %}           
+            var {{key}} = "{{ value }}";        
+            console.log("D3 page_d3_ink3 config key: [{{key}}] value: {{ value }}");     
+        {% endfor %}        
+    </script>
+    
+
+<!-- Requirements for wysiwig style editing -->
+    <script type="text/javascript" src="/js/jquery.js">
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-wysiwyg.js"></script>
+    <script type="text/javascript" src="/js/jquery.hotkeys.js"></script><!-- wysiwig -->
+    <script type="text/javascript" src="/js/d3.v315.min.js"></script><!-- JC Apr 23 2013 -->
+    
+    
+    <!-- jQM added May 24, 2013 -->
+    <script type="text/javascript" src="/js/jquery.mobile-events.min.js"></script>
+    
+    <script type="text/javascript" src="/js/doubleTap.js"></script>
+    <script type="text/javascript" src="/js/pure.js"></script> <!-- For templating OK TO DELETE -->
+    <script type="text/javascript" src="/js/mustache.js"></script>
+    <script type="text/javascript" src="/js/easyXDM.min.js"></script>
+    <script type="text/javascript" src="/js/modernizr.custom.46397.js"></script>
+    
+    
+    <!-- JC Specific -->
+    <script type="text/javascript" src="/js/class.js"></script><!-- js OO -->
+    <script type="text/javascript" src="/js/ajax_channel.js"></script><!-- tool2json  -->
+{% endblock d3-load_main_js%}
+
+
+{% block d3-content %}
+    <!-- div id="wrapper" -->
+    <script>
+        console.log("[compatibility: safari] Setting mustache tags with script.");
+        Mustache.tags = ['[[', ']]'];
+    </script>
+    
+    
+    <!--    DEFINITIONS  -->
+    <!-- 1) FPS -->
+        <div id="fps" style="display:none; visibility:hidden; position:absolute; z-index=100;">FPS: <span>?</span></div>
+    <!-- 2) WYSIWIG -->
+    
+    <!-- default wysiwig-editor styled in wysiwig_index.css -->
+        <div class="wysiwig-editor" id="editor" style="z-index:10;"> </div>
+    
+    <!-- 3) BOX -->
+        <!-- dynamic replacement <div id="nytg-tooltipContainer"> -->
+        <div class="d3_box_css" id="d3_box_css_id" style="z-index:10;"></div>
+    
+        <div id="div_container_id" class="div_container" ><!-- selected by main mustache -->
+            <div id="jonny-tool" class="jonny-tool">
+              <div class="jonny-image" id="jonny-image-unique">
+                  <img class="jonny-image-card" src="[[mustache_image]]">
+              </div>
+              <div class="jonny-title"><b>[[mustache_title]]</b></div>
+              <div class="jonny-description" id="jonny-description-unique">
+                  <br class="spacer">
+                  <img class="keyhole-bitmap-icon" src="/images/gameui/keyhole_bitmap_icon_blue.png" >
+                      [[mustache_description]]
+              </div>
+          </div>
+        </div>
+    
+    <!-- redirect input focus given contenteditable="true" above -->
+    <input id="orInput" disabled="disabled" style="width:0; height:0; opacity:0;display:none;" type="text" />
+        
+    <script>
+        // Initialize Element (?)
+        // Compatibility issues
+        // Prevent mobile safari pull down scrolling
+        document.ontouchmove = function(event){ event.preventDefault(); }
+        document.ontouchcancel = function(event){ event.preventDefault(); }
+        // Basic browser detection 
+        var is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
+        var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
+        var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
+        var is_safari = navigator.userAgent.indexOf("Safari") > -1;
+        var is_Opera = navigator.userAgent.indexOf("Presto") > -1;
+        if ((is_chrome)&&(is_safari)) {is_safari=false;}
+    
+        $(function(){
+      
+            function initToolbarBootstrapBindings() {
+              var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
+                    'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+                    'Times New Roman', 'Verdana'],
+                    fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+              $.each(fonts, function (idx, fontName) {
+                  fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
+              });
+              $('a[title]').tooltip({container:'body'});
+                $('.dropdown-menu input').click(function() {return false;})
+                    .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
+                .keydown('esc', function () {this.value='';$(this).change();});
+        
+              $('[data-role=magic-overlay]').each(function () { 
+                var overlay = $(this), target = $(overlay.data('target')); 
+                overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+              });
+              if ("onwebkitspeechchange"  in document.createElement("input")) {
+                var editorOffset = $('#editor').offset();
+                $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
+              } else {
+                $('#voiceBtn').hide();
+              }
+            };
+            
+            function showErrorAlert (reason, detail) {
+                var msg='';
+                if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
+                else {
+                    console.log("error uploading file", reason, detail);
+                }
+                $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
+                 '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
+            };
+            
+            initToolbarBootstrapBindings();  
+            $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
+            window.prettyPrint && prettyPrint();
+          });
+    </script>
+    
+
+
+    <!-- Main script -->
+    <!-- Passed parameters -->
+    <script type="text/javascript"> 
+       var ink_id = "{{ ink_id }}"
+       var stamp_string = "{{ stamp_string }}"
+       console.log("Given ink_id: "+ink_id);
+       console.log("Given stamp_string: "+stamp_string);
+    </script>
+    
+    
+    
+    
+
+    <script type="text/javascript" src="/js/ont/d4-std.js"></script>
+    <script type="text/javascript" src="/js/ont/d4-std-ui-elements.js"></script>
+    <script type="text/javascript" src="/js/ont/d4-inkpath.js"></script>
+    <script type="text/javascript" src="/js/ont/d4-app-v1.js"></script>
+    <script>console.log("===================== END OF d4-std-* ===========================");</script>
+    <script type="text/javascript" src="/js/ont/d4-watercolor.js"></script>
+
+<!-- jon reviewed d4-common.  not bad, but consider separating base ui elements from app specific [] keep index up to date! -->
+    <script type="text/javascript" src="/js/ont/d4-app-functions-v1.js"></script>
+    <script type="text/javascript" src="/js/ont/d4-app-classes-v1.js"></script>
+    
+    <!-- **Setup your main calls ala below in content you're inserting -->
+    <!-- to content    <script type="text/javascript" src="/js/ont/d4-config.js"></script>-->
+    <!-- to content    <script type="text/javascript" src="/js/ont/d4-main.js"></script>-->
+    <!-- to content    <script type="text/javascript" src="/js/ont/d4-ink-three.js"></script>-->
+
+    <script>console.log("===================== END OF d4-* ===========================");</script>
+    
+    
+
+    
+    
+
+    
+    
+        
+    <div id="iframeContainerWrapper" style="display:block;visibility:hidden;">
+        <a href="javascript:closeFrame();">
+        <img class="close-button" src="/images/gameui/x-altx-alt.png" height="30" width="30" style="position:absolute;left:320px;top:-30px;">
+        </a>
+        <div id="iframeContainer">
+            <!-- do not define an iframe, it will get generated for you in this container -->
+            <!-- iframe is jQM note: will not load if d3-config set to 'minimal' -->
+        </div>
+        <script>
+            function closeFrame() {
+                document.getElementById("iframeContainerWrapper").style.visibility="hidden";
+                document.getElementById("iframeContainerWrapper").style.display="none";
+            }
+        </script>
+    </div>
+{% endblock d3-content %}
+
+
+
+
+
+{% block d3-css %}
+    <link rel="stylesheet" href="/css/wysiwig_index.css" />
+    <link rel="stylesheet" href="/css/d3_box.css" />
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+    <!-- mobile
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    -->
+    <!-- Disable ipad default zoom (allows for double tap events) -->
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    
+    <style> /* STYLE CUSTOMIZATIONS */
+
+        /* Eliminate body margins (default 8 causes css/svg offset) */
+        body { margin: 0px 0px 0px 0px; }
+    
+        /* image:  remove mouseover highlight from image */
+        * { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); } /* mobile safari patch */
+    
+        /* image:  Firefox bug.  remove faint border as image moved */
+        circle {
+          stroke: #000;
+          stroke-opacity: .5;
+        }
+        .background {
+            fill: #eee;
+        }
+        line {
+            stroke: #fff;
+        }
+        text.active {
+            fill: red;
+        } 
+    </style>
+{% endblock d3-css %}

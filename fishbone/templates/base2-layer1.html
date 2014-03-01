@@ -1,0 +1,23 @@
+{% extends 'base2.html' %}
+
+{% block footer %}
+
+<!-- Add raw type of data to footer -->
+
+<!--Output django model-->
+{% if data %}
+	<h4>Raw 'Data':</h4>
+	<table>
+	<tbody>
+	{% for instance in data %}
+	    {% for field, value in instance.fields.items %}
+			<tr>
+				<td class="field-name">{{ field }}</td><td>{{ value }}</td>
+	    	</tr>
+	    {% endfor %}
+	    <br>
+	{% endfor %}
+	</table>
+{% endif %}
+
+{% endblock footer %}

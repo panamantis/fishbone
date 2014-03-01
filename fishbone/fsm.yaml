@@ -1,0 +1,133 @@
+state_machines:
+
+- import: fantasm/finite_state_machine_def_1.yaml
+
+- name: Panamantis1
+  namespace: panamantis1
+  task_retry_limit: 2
+
+  states:
+  - name: StartingState
+    initial: True # must be exactly one
+    action: StartingStateClass
+    transitions:
+    - event: ok
+      to:    ReadModel
+    - event: failure
+      to:    FailureState
+  
+  - name: ReadModel
+    action: ReadModelClass
+    transitions:
+    - event: ok
+      to:    RunFunction
+    - event: failure
+      to:    FailureState
+      
+  - name: RunFunction
+    action: RunFunctionClass
+    transitions:
+    - event: ok
+      to:    OutputModel
+    - event: failure
+      to:    FailureState
+      
+  - name: OutputModel
+    action: OutputModelClass
+    transitions:
+    - event: ok
+      to:    FinalState
+    - event: failure
+      to:    FailureState
+  
+  
+  - name: FailureState
+    final: True
+    action: FailureStateClass
+    transitions:
+    - event: recover
+      to:    FinalState
+      
+  - name: FinalState
+    final: True
+    action: FinalStateClass
+    
+##############################################################################
+
+- name: SimpleExample
+  namespace: simple_example
+
+  states:
+  - name: StartingState
+    initial: True
+    action: StartingStateClass
+    transitions:
+    - event: ok
+      to:    FinalState
+    - event: failure
+      to:    FailureState
+
+  - name: FinalState
+    final: True
+    action: FinalStateClass
+
+  - name: FailureState
+    final: True
+    action: FailureStateClass
+    transitions:
+    - event: recover
+      to:    FinalState
+      
+      
+      
+- name: Panamantis2
+  namespace: panamantis2
+  task_retry_limit: 1
+
+  states:
+      
+  - name: StartingState
+    initial: True # must be exactly one
+    action: StartingStateClass
+    transitions:
+    - event: ok
+      to:    ReadModel
+    - event: failure
+      to:    FailureState
+  
+  - name: ReadModel
+    action: ReadModelClass
+    transitions:
+    - event: ok
+      to:    RunFunction
+    - event: failure
+      to:    FailureState
+      
+  - name: RunFunction
+    action: RunFunctionClass
+    continuation: True
+    transitions:
+    - event: ok
+      to:    OutputModel
+    - event: failure
+      to:    FailureState
+      
+  - name: OutputModel
+    action: OutputModelClass
+    transitions:
+    - event: ok
+      to:    FinalState
+    - event: failure
+      to:    FailureState
+  
+  
+  - name: FailureState
+    final: True
+    action: FailureStateClass
+    transitions:
+    - event: recover
+      to:    FinalState
+      
+  - name: FinalState
+    final: True
+    action: FinalStateClass 

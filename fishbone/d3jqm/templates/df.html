@@ -1,0 +1,1009 @@
+    <head>
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />  -->
+    	<meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+        <link rel="stylesheet" href="/css/jqm.1.4.1.min.css" />
+        <title>Mobile Dashboards Dreamforce 2013</title>
+        <style type="text/css">
+            .ui-header .ui-title, .ui-footer .ui-title .ui-li .ui-btn-text a.ui-link-inherit {
+				white-space: normal;
+			}
+			
+			.axis path,
+			.axis line {
+			  fill: none;
+			  stroke: #000;
+			  shape-rendering: auto;
+			}
+			
+			.bar {
+			  fill: steelblue;
+			}
+			.bar:hover {
+  				fill: #00BFFF;
+			}
+			line.crisp {
+            shape-rendering: crispEdges;
+            }
+			
+			.blocks {
+			  width: 100% !important;
+			}
+			
+			a.ui-slider-handle-snapping { -webkit-transition: none; -moz-transition: none; }
+			
+			.node rect {
+			  cursor: pointer;
+			  fill: #fff;
+			  fill-opacity: .5;
+			  stroke: #3182bd;
+			  stroke-width: 1.5px;
+			}
+			
+			.node text {
+			  font: 10px sans-serif;
+			  pointer-events: none;
+			}
+			
+			path.link {
+			  fill: none;
+			  stroke: #9ecae1;
+			  stroke-width: 1.5px;
+			}
+			
+			#tooltip {
+				position: absolute;
+				width: 200px;
+				height: auto;
+				padding: 10px;
+				background-color: white;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+				-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				pointer-events: none;
+			}
+			
+			#tooltip.hidden {
+				display: none;
+			}
+			
+			#tooltip p {
+				margin: 0;
+				font-family: sans-serif;
+				font-size: 16px;
+				line-height: 20px;
+			}
+			
+        </style>
+        <script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.mobile-1.4.1.min.js"></script>
+    </head>
+    <body>
+        <!-- Main Page -->
+    	<div data-role="page" data-theme="c" id="mainpage">
+        	<div data-role="header" data-theme="c">
+                <h2>Mobile Dashboards</h2>
+            </div>
+            <div data-role="content">
+            	<ul data-role="listview"  data-filter="true" data-inset="true" data-theme="c" data-dividertheme="b">
+                    <!-- Google Charts Demo -->
+                    <li data-role="list-divider" data-theme='b'>Google Charts Gallery</li>
+                    <li><a href="#oppty" data-transition="pop">
+                         <!--  <img  height="70" width="70" src="{!URLFOR($Resource.tableicons,'table2.png')}" /> -->
+                         Opportunity Summary</a>
+                	</li>
+                    <li><a href="#revenue" data-transition="pop">
+                        <!-- <img  height="70" width="70" src="{!URLFOR($Resource.charticons,'chart3.png')}" />  -->
+                        Revenue Trend
+                        </a></li>
+                    <li><a href="#gridlayout" data-transition="pop">
+                        <!-- <img  height="70" width="70" src="{!URLFOR($Resource.charticons,'chart1.jpg')}" />  -->
+                        Grid Layout
+                        </a></li>             
+                    <!-- D3 Demo -->
+                    <li data-role="list-divider" data-theme='b'>D3.js Demo</li>
+                    <li><a href="#d3barchartpageid" data-transition="pop">
+                        D3 Bar Chart</a></li>
+                    <li><a href="#d3linechartpageid" data-transition="pop">
+                     <!--    <img  height="70" width="70" src="{!URLFOR($Resource.charticons,'chart4.png')}" />  -->
+                        D3 Line Chart</a></li>
+                    <li><a href="#d3treechartpageid" data-transition="pop">D3 Tree Chart</a></li>
+                    <!--  JQM Demo -->
+                    <li data-role="list-divider" data-theme='b'>JQM Demo</li>
+                   <!--  <li><a href="#" data-transition="pop">RWD Table</a></li>  --> 
+                    <li><a href="#popupblockid" data-rel="popup">List View Popup</a></li>
+                    <li><a href="#popupdialogid" data-rel="popup">Dialog Popup</a></li>
+                    <li><a href="#formpageid" data-transition="pop">Form</a></li>    
+				</ul>
+            </div>
+            <div data-role="footer" data-theme="c">
+			    <h1>Dreamforce 2013</h1>
+			</div>
+			<div data-role="popup" data-theme="a" id="popupblockid">
+        	<div data-role="content">
+            	<ul data-role="listview"  data-inset="true" data-theme="a" data-dividertheme="c">
+                    <li data-role="list-divider">Charts Gallery</li>
+                    <li><a href="#" data-transition="pop">Option1</a></li>
+                    <li><a href="#" data-transition="pop">Option2</a></li>
+                    <li><a href="#" data-transition="pop">Option2</a></li>
+				</ul>
+            </div>
+            </div>
+            <div data-role="popup" data-theme="b" id="popupdialogid">
+        	   <div data-role="content">
+                <h3 class="ui-title">Popup Test Dialog</h3>
+			    <p>Welcome to Dreamforce 2013, Hope you enjoy!</p>
+			    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="b">Ok</a>
+			    <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b">Cancel</a>
+               </div>
+            </div>	
+        </div>
+        <!-- End of Main Page-->
+        
+        <!-- Opportunity Chart -->
+        <div data-role="page" data-theme="b" id="oppty" data-dom-cache="true">
+        	<div data-role="header" data-theme="c">
+                <a href="#mainpage" data-role="button" data-theme="c" data-transition="pop" data-icon="back" data-iconpos="notext">Back</a>
+        		<h2>Opportunity Summary</h2>
+        		<a href="#tableoptionsid" data-role="button" data-rel="popup" id="menuid">Columns</a>
+            </div>
+            <div data-role="content">
+                <div class="ui-body ui-body-c" id="opptydtablediv"></div>
+            </div>
+            <div data-role="footer" data-theme="c">
+			    <h1>Dreamforce 2013</h1>
+			</div>
+			<div data-role="popup" data-theme="c" id="tableoptionsid" style="min-width:210px;">
+				<fieldset id="checkboxwidgetid" data-theme="c" data-role="controlgroup">
+				</fieldset>
+			</div>
+        </div>
+        
+        <!-- Contract Booking -->
+        <div data-role="page" data-theme="c" id="gridlayout" data-dom-cache="false">
+        	<div data-role="panel" data-position-fixed="false" data-display="push" data-theme="c" data-dismissible="false" data-position="right" id="filterpanel">
+	           <ul id="salesrepfilterid" data-role="listview" data-theme="c" class="nav-search"></ul>
+        	</div>
+        	<div data-role="header" data-theme="c">
+        		<a href="#mainpage" data-role="button" data-theme="c" data-transition="pop" data-icon="back" data-iconpos="notext">Back</a>
+        		<h1>Sales Score Card</h1>
+        		<a href="#filterpanel" data-role="button" id="menuid" data-icon="bars" data-iconpos="notext">Menu</a>
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a ui-responsive" id="firstblock"  data-theme="c">
+				    <div class="ui-block-c">
+				    	<div class="ui-body ui-body-c" style="height:300px;">	    
+				    		<p style="float:center;font-size:20px;">Total Revenue</p>
+				    		<p id="totalrevenueid" style="float:right;font-size:50px;"></p>
+				    	</div>
+				    </div>
+				    <div class="ui-block-c">	    
+				    	<div class="ui-body ui-body-c" style="height:300px;">
+				    		<div  style="width:100%;height:100%" id="donutchart"></div>
+				    	</div>
+				    </div>
+				</div>
+				<div class="ui-responsive" id="secondblock"  data-theme="c">
+					<div class="ui-body ui-body-c" style="height:450px;">
+					   <p><h3>Worldwide Revenue</h3></p>
+					   <div id="geochartid"></div>
+					</div>
+				</div>
+            </div>
+            <div data-role="footer" data-theme="c">
+		        <h4>Dreamforce 2013</h4>
+		    </div><!-- /footer -->
+        </div>
+        
+        <!-- Revenue Trend -->
+        <div data-role="page" data-theme="c" id="revenue">
+        	<div data-role="header" data-theme="c">
+                <a href="#mainpage" data-transition="pop" data-role="button" data-inline="true">Back</a>
+                <h2>Revenue Trend</h2>
+            </div>
+            <div data-role="content" data-theme="c">
+                <div>
+			        <label for="rangeminid">Probability Minimum:</label>
+    				<input name="rangeminid" id="rangeminid" data-highlight="true" min="0" max="100" value="0" type="range" />
+			    </div>
+                <div class="ui-body ui-body-c" id="revchartdiv"></div>                
+            </div>
+             <div data-role="footer" data-theme="c">
+			    <h1>Dreamforce 2013</h1>
+			</div>
+        </div>
+        
+        
+        <!-- D3 Pages -->
+         <!-- D3 Line Graph Chart -->
+        <div data-role="page" data-theme="c" id="d3linechartpageid">
+        	<div data-role="header" data-theme="c"  >
+                <a href="#mainpage" data-transition="pop" data-role="button" data-inline="true">Back</a>
+                <h2>Sales Trend</h2>
+            </div>
+            <div data-role="content" data-theme="c" >
+                <div id="d3linechartid" class="ui-body ui-body-c"  data-theme="c" ></div>
+            </div>
+             <div data-role="footer" data-theme="c">
+			    <h1>Dreamforce 2013</h1>
+			</div>
+        </div>
+        
+        <!-- D3 Bar Chart -->
+        <div data-role="page" data-theme="b" id="d3barchartpageid">
+        	<div data-role="header" data-theme="c">
+                <a href="#mainpage" data-transition="pop" data-role="button" data-inline="true">Back</a>
+                <h2>Revenue Trend</h2>
+            </div>
+            <div data-role="content" data-theme="c" >
+                <div class="ui-body ui-body-c" id="d3barchartId" data-theme="c"> </div>
+            </div>
+             <div data-role="footer" data-theme="c">
+			    <h1>Dreamforce 2013</h1>
+			</div>
+			<div id="tooltip" class="hidden">
+				<p><strong>Revenue : </strong><span id="revenueid"></span></p>
+				<p><strong>Quarter : </strong><span id="quarterid"></span></p>
+			</div>
+        </div>
+        
+        <div data-role="page" data-theme="b" id="d3treechartpageid">
+            <div data-role="header" data-theme="c">
+                <a href="#mainpage" data-transition="pop" data-role="button" data-inline="true">Back</a>
+                <h2>Revenue Trend</h2>
+            </div>
+            <div data-role="content" data-theme="c" >
+                <div class="ui-body ui-body-c" id="d3treechartid" data-theme="c"> </div>
+            </div>
+             <div data-role="footer" data-theme="c">
+                <h1>Dreamforce 2013</h1>
+            </div>
+        </div>
+        
+       
+        <!-- Sample Form Code -->
+        <div data-role="page" data-theme="c" id="formpageid">
+        	<div data-role="header" data-theme="c">
+        		<a href="#mainpage" data-transition="pop" data-role="button" data-inline="true">Back</a>
+                <h2>Mobile Dashboards</h2>
+            </div>
+            <div data-role="content">
+            	<form>
+			        <div style="padding:10px 20px;">
+			            <h3>Please sign in</h3>
+			            <label for="un" class="ui-hidden-accessible">Username:</label>
+			            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="c"></input>
+			            <label for="pw" class="ui-hidden-accessible">Password:</label>
+			            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="c"></input>
+			            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+			        </div>
+			    </form>
+            </div>
+            <div data-role="footer" data-theme="c">
+			    <h1>Dreamforce 2013</h1>
+			</div>
+		</div>
+    </body>
+    <!-- ForceTk Javascript Library from Salesforce for accessing Salesforce API using Javascript -->
+    <!--  <apex:includeScript value="{!URLFOR($Resource.MobileSample_Resources_jQueryMobile, 'ForceTk.js')}"/> -->
+    <!-- D3.JS Library -->
+    <script type="text/javascript" src="/js/d3.v3.3.10.min.js"></script>
+    <!-- Google Charts API -->
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    
+    
+    <script type="text/javascript">
+	//load google chart
+	google.load("visualization", "1", {packages:["corechart", "table", "geochart"]});
+    	
+    //Jquery no conflict
+    var $ = jQuery.noConflict();
+    
+    //our app namespace
+    var chartapp = {};
+    	
+    //all functions
+    chartapp.fn = {};
+    	
+    //all data
+    chartapp.datastore = {};
+    
+    //init data 
+    /* Analytics API Schema details - http://www.salesforce.com/us/developer/docs/api_analytics/index.htm */
+    chartapp.fn.initdata = function(response){
+	    if(response.hasDetailRows){
+	    	if(response.reportExtendedMetadata && response.reportExtendedMetadata.detailColumnInfo){ 		
+	    		//create empty datable our apps base data structure which rows and columns matrix
+	    		chartapp.datastore.datatable = new google.visualization.DataTable();
+	    		//create header
+	    		var headerarray = chartapp.datastore.report.reportMetadata.detailColumns;
+	    		var headrmap = [];
+	    		//Loop through the report meta-data and perform simple transformation of values
+	    		for(var i=0; i<headerarray.length ; i++){
+                    //console.log("Header Properties = "+JSON.stringify(prop));
+                    var h = response.reportExtendedMetadata.detailColumnInfo[headerarray[i]] || [];
+	    			if(h.dataType=="picklist" || h.dataType=="string"){
+	    				h.dataType = 'string';
+	    			}
+	    			if(h.dataType=="currency" || h.dataType=="int" || h.dataType=="percent"){
+	    				h.dataType = 'number';
+	    			}
+	    			if(h.dataType=="date" || h.dataType=="datetime"){
+	    				h.dataType = 'date';
+	    			}
+	    			
+	    			headrmap[i]=h.dataType;	
+	    			chartapp.datastore.datatable.addColumn(h.dataType, h.label);
+	    		}
+	    		//add owner id column
+	    		//chartapp.datastore.datatable.addColumn('string', 'OwnerId');
+	    		//create a temporary usermap
+	    		//chartapp.datastore.usermap = {};
+	    		
+	    		//append rows
+	    		for(var index=0; index<response.factMap["T!T"].rows.length; index++){
+	    			//console.log("pushing data row = "+JSON.stringify(response.factMap["T!T"].rows[index].dataCells));
+	    			var row = [];
+	    			for(var k=0; k<response.factMap["T!T"].rows[index].dataCells.length; k++){
+	    				var cell = response.factMap["T!T"].rows[index].dataCells[k];
+                        if(cell.value && cell.value.amount){
+	    					//console.log("cell amount"+cell.value.amount);
+	    					row.push(parseInt(cell.value.amount));
+	    				}else{
+	    					if(headrmap[k]=="number"){
+	    						row.push(parseInt(cell.label));
+	    					}else if(headrmap[k]=="date"){
+	    						row.push(new Date(cell.value));
+	    					}else if(cell.label == cell.value){
+	    						row.push(cell.value);
+	    					}else{
+	    						row.push({f:cell.label, v:cell.label+"#"+cell.value});
+	    					}
+	    					//console.log("cell value "+cell.label);
+	    				}
+	    			}
+	    			//console.log(JSON.stringify(row));
+	    			chartapp.datastore.datatable.addRow(row);	
+	    		}		
+	    	}  		
+	    }
+	    
+	    chartapp.fn.showcheckboxwidget();
+	    $("#checkboxwidgetid :input").on('change', chartapp.fn.checkselection);		
+    }
+    
+    //summarize columns
+    chartapp.fn.summarize = function(keycol, valuecol, minvalfilter){
+    	var aggregates = {};
+    	for(var i=0; i<chartapp.datastore.datatable.getNumberOfRows(); i++){
+   			var total = Number(chartapp.datastore.datatable.getValue(i,valuecol)) >= minvalfilter ? Number(chartapp.datastore.datatable.getValue(i,valuecol)) : 0; 
+   			if(aggregates[chartapp.datastore.datatable.getValue(i,keycol)]){
+   				total = Number(aggregates[chartapp.datastore.datatable.getValue(i,keycol)]) +total; 
+   			}
+   			aggregates[chartapp.datastore.datatable.getValue(i,keycol)]=total;
+   		}
+   		return aggregates;
+    } 
+        
+        
+	//Datatable
+	chartapp.fn.datatable = function(showcols) {       
+		//console.log("columns are = "+showcols);
+		chartapp.datastore.datatable.view = new google.visualization.DataView(chartapp.datastore.datatable);
+	    var cols = showcols.length<=0 ? [0, 1, 2,3] : showcols; 
+	    chartapp.datastore.datatable.view.setColumns(cols);
+	    var table = new google.visualization.Table(document.getElementById('opptydtablediv'));
+	    table.draw(chartapp.datastore.datatable.view, {title:'Opportunity Summary', page:'enable', pageSize:10});
+   }
+   
+   //dynamically build checkbox widget
+	chartapp.fn.showcheckboxwidget = function(){
+		$("#checkboxwidgetid").empty();
+		var widget = $("#checkboxwidgetid");
+		//We Ommit 0 since we want oppty name to be present always
+		for(var index =1; index<chartapp.datastore.datatable.getNumberOfColumns(); index++){
+			var colname = chartapp.datastore.datatable.getColumnLabel(index);
+			widget.append('<input type="checkbox" name="'+index+'" id="checkbox'+index+'" value="'+index+'"/>');
+			widget.append('<label for="checkbox'+index+'">'+colname+'</label>');
+		}
+		$("#checkboxwidgetid").trigger('create');
+	}
+	
+	//Checkbox event handler
+	chartapp.fn.checkselection = function(){
+		var cols = [0];
+		$('#checkboxwidgetid :checked').each(function (){
+			//console.log($(this).val());
+			cols.push(Number($(this).val()));
+		});
+		chartapp.fn.datatable(cols);
+	}
+	
+   //donut chart
+   chartapp.fn.donut = function(){
+   		chartapp.datastore.donuttable = new google.visualization.DataTable();
+   		chartapp.datastore.donuttable.addColumn('string', 'Industry');
+   		chartapp.datastore.donuttable.addColumn('number', 'Amount');
+   		var totalrevenue =0;
+   		var revmap = {};
+   		var usermap = {};
+   		for(var i=0; i<chartapp.datastore.datatable.getNumberOfRows(); i++){
+   			var total = 0;
+   			//console.log("Country = "+chartapp.datastore.datatable.getValue(i,8)+", "+"Amount = "+chartapp.datastore.datatable.getValue(i,8));
+   			if(revmap[chartapp.datastore.datatable.getValue(i,8)]){
+   				total = Number(revmap[chartapp.datastore.datatable.getValue(i,8)]) + Number(chartapp.datastore.datatable.getValue(i,3)); 
+   			}else{
+   				total = Number(chartapp.datastore.datatable.getValue(i,3));
+   			}
+   			//console.log(chartapp.datastore.datatable.getValue(i,8) +" => "+total);
+   			revmap[chartapp.datastore.datatable.getValue(i,8)]=total;
+   			totalrevenue = totalrevenue + (Number(chartapp.datastore.datatable.getValue(i,3)) || 0);
+   			
+   			//filter by usr logic
+   			var userval = chartapp.datastore.datatable.getValue(i,13) ? chartapp.datastore.datatable.getValue(i,13).split('#') : [];
+   			if(userval && userval.length>=2){
+   				usermap[userval[1]] = userval[0];
+   			}
+   		}
+  		for(var prop in revmap){	
+   			chartapp.datastore.donuttable.addRow([prop, revmap[prop]]);
+   		}
+   		console.log("Total Revenue is = "+totalrevenue);
+   		
+   		//Format total amount with USD standards
+   		var formatter = new google.visualization.NumberFormat({prefix: '$', negativeColor: 'red', negativeParens: true});
+   		$("#totalrevenueid").text(formatter.formatValue(totalrevenue));
+   		
+   		//Define Donut chart options
+   		var options = {title: 'Revenue Distribution',pieHole: 0.5};
+		var htmlfrag = document.getElementById('donutchart');
+		if(htmlfrag){
+		  var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+	      chart.draw(chartapp.datastore.donuttable, options);
+		}
+		
+		//add filters
+	    $("#salesrepfilterid").empty();
+        $("#salesrepfilterid").append('<li data-role="list-divider" data-theme="a" style="height:29px">Filter By Sales Rep</li>');
+	    for(name in usermap){
+	    	$("#salesrepfilterid").append('<li id="sales-'+name+'" data-theme="a" style="height:29px">'+usermap[name]+'</li>');	
+	    }
+   		$("#salesrepfilterid").listview("refresh");
+   
+   }
+   
+   //geochart
+   chartapp.fn.geochart = function(){
+   		//aggregate data
+   		var revmap = chartapp.fn.summarize(7, 3, -999999);
+   		
+   		//define datatable and populate it
+   		chartapp.datastore.geotable = new google.visualization.DataTable();
+   		chartapp.datastore.geotable.addColumn('string', 'Country');
+   		chartapp.datastore.geotable.addColumn('number', 'Amount');
+   		//conver object to array prop so datatable understands it
+   		for(var prop in revmap){
+   			chartapp.datastore.geotable.addRow([prop, revmap[prop]]);
+   		}
+   		
+   		//define geochart and draw
+   		var chart = new google.visualization.GeoChart(document.getElementById('geochartid'));
+        chart.draw(chartapp.datastore.geotable, {height:410,keepAspectRatio:true});    
+   }
+   
+   //revenue barchart helper   	
+   chartapp.fn.revenuechart = function() {
+   		$.mobile.loading('show');
+   		
+	    //get min value select value from ui
+	    var range = {min:($("#rangeminid").val() || 0), max:0};
+	    
+	    //iterate our datatable to do a group by of stage with amount
+	    var revmap = {};
+	    //console.log("range min = "+range.min);
+   		for(var i=0; i<chartapp.datastore.datatable.getNumberOfRows(); i++){
+   			var percent = parseInt(chartapp.datastore.datatable.getValue(i, 9));
+   			var amount = Number(chartapp.datastore.datatable.getValue(i,3));
+   			if(percent >= range.min){
+	   			var total = 0;
+	   			if(revmap[chartapp.datastore.datatable.getValue(i,2)]){
+	   				total = Number(revmap[chartapp.datastore.datatable.getValue(i,2)]) + amount; 
+	   			}else{
+	   				total = amount;
+	   			}
+	   			revmap[chartapp.datastore.datatable.getValue(i,2)]=total;
+   			}
+   		}
+	    
+	    //define datatable (two dim array)
+	    var revtable = new google.visualization.DataTable();
+   		revtable.addColumn('string', 'Lead Type');
+   		revtable.addColumn('number', 'Sales');
+   		
+   		//object to datatable
+   		for(var prop in revmap){
+   			revtable.addRow([prop, revmap[prop]]);
+   		}
+	
+	    var options = {title: 'Revenue Trend',legend:{position:'top'}, height:400};
+	    
+	    //define column chart
+	    var chart = new google.visualization.ColumnChart(document.getElementById('revchartdiv'));
+	    
+	    //draw chart
+	    chart.draw(revtable, options);
+	    
+	    //bind events
+	    $( "#rangeminid" ).on( "change", function( event, ui ) { event.preventDefault(); chartapp.fn.revenuechart(); } );
+	    
+	    $.mobile.loading('hide');
+   }
+   
+   
+   /* D3js Functions */
+   
+   
+    chartapp.fn.d3linechart = function(){
+    //construct dataset Oppty Close Date and Amount
+   	    var revmap = chartapp.fn.summarize(5, 3, -999999);
+   		var data = [];
+        for(var p in revmap){
+        	console.log("date = "+p);
+            var temp = {closedate:new Date(p), amount:(revmap[p] || 0)};
+            data.push(temp);
+        }
+        
+        //Sort Data need for transistion
+        data.sort(function(a, b){ return d3.ascending(a.closedate, b.closedate); });
+        
+        
+        //Get Current Window width and height
+   		var viewport = { width  : $(window).width(), height : $(window).height()};
+   		//Set Canvas Area properites
+   		//var margin = {top: 200, right: 100, bottom: 200, left: 100},
+   		var margin = {top: 50, right: 100, bottom: 50, left: 100},
+	    width = viewport.width - (margin.left + margin.right),
+	    height = viewport.height - (margin.top + margin.bottom) - 150;
+		
+		//X value transformation function - transforms close date into chart x position of canvas
+		var x = d3.time.scale()
+		          .range([0, width])
+		          .domain(d3.extent(data, function(d) { return d.closedate; }));
+		
+		//Y Value transformation function - transforms amount into y position of canvas
+		var y = d3.scale.linear()
+		          .range([height, 0])
+		          .domain(d3.extent(data, function(d) { return d.amount; }));
+		
+		//X Axis Function
+		var xAxis = d3.svg.axis()
+		    .scale(x)
+		    .ticks(width > 500 ? 10: 4)
+		    .tickFormat(d3.time.format('%m/%y'))
+		    .orient("bottom");
+		
+		//Y Axis Function
+		var yAxis = d3.svg.axis().scale(y).ticks(height > 500 ? 10 : 5).orient("left");
+		    
+		//Line Function to draw SVG Line
+		var line = d3.svg.line()
+		    .interpolate("cardinal")
+		    .x(function(d) { return x(d.closedate); })
+		    .y(function(d) { return y(d.amount); });
+		
+		//Create SVG canvas area with height and width properites
+		var svg = d3.select("#d3linechartid").append("svg")
+		    .attr("width", width + margin.left + margin.right)
+		    .attr("height", height + margin.top + margin.bottom)
+		  	.append("g")
+		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+   		console.log("data = "+JSON.stringify(data));
+		
+		
+		//Draw XAxis
+		svg.append("g")
+		      .attr("class", "x axis")
+		      .attr("transform", "translate(0," + height + ")")
+		      .call(xAxis)
+		      .append("text")
+		      .attr("x", width )
+        	  .attr("y", "20")
+        	  .style("text-anchor", "middle")
+		      .text("Close Date");
+		
+		//Draw YAxis
+		svg.append("g")
+		      .attr("class", "y axis")
+		      .call(yAxis)
+		      .append("text")
+		      .attr("transform", "rotate(-90)")
+		      .attr("y", 6)
+		      .attr("dy", ".71em")
+		      .style("text-anchor", "middle")
+		      .text("Sales Amount ($)");
+		
+		//Draw SVG Path
+		var path = svg.append("path")
+		      .datum(data)
+		      .attr("d", line)
+              .style('fill', 'none')
+              .style('stroke', 'steelblue')
+              .attr("stroke-width", "2");
+		      
+		     
+        //total nodes for transition
+        var totalLength = path.node().getTotalLength();
+        
+        //path transition
+        path
+            .attr("stroke-dasharray", totalLength+","+totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+            .duration(3000)
+            .ease("linear")
+            .attr("stroke-dashoffset", 0);
+   }
+   
+   
+   
+   
+ /* D3js Barchart function */
+    
+    chartapp.fn.d3barchart = function(){
+        //construct dataset stage and amount combo
+        var revmap = chartapp.fn.summarize(10, 4, -999999); 
+        //get screen width and height
+        var viewport = {
+		    width  : $(window).width(),
+		    height : $(window).height()
+		};
+		//set svg margins
+        var margin = {top: 100, right: 50, bottom: 100, left: 100},
+        width = viewport.width - margin.left - margin.right -100,
+        height = viewport.height - margin.top - margin.bottom -100;
+        //convert object to array so d3 understands
+        var data = [];
+        for(var p in revmap){
+            var t = {quarter:p, revenue:(revmap[p] || 0)};
+            data.push(t);
+        }
+        
+        data.sort(function(a, b){ 
+        	var atemp = a.quarter.split('-')[1]+''+a.quarter.split('-')[0];
+        	var btemp = b.quarter.split('-')[1]+''+b.quarter.split('-')[0]; 	
+        	return d3.ascending(atemp, btemp); 
+        });
+        
+        console.log(JSON.stringify(data));
+        
+        /* https://github.com/mbostock/d3/wiki/Ordinal-Scales#wiki-ordinal_rangeBands */
+        //define x scale function which is will map our quarter value into x value in chart
+        //RangeRoundBands - is a continious function which is going to return unique values for each input domain value 
+        var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width])
+                .domain(data.map(function(d) { return d.quarter; }));
+        
+        //define y scale function which is will map our revenue value into y value in chart
+        var y = d3.scale.linear()
+            .range([height,  0])
+            .domain([0, d3.max(data, function(d) { return d.revenue; })]);
+        
+     
+        //define our svg canvas for barchart
+        var svg = d3.select("#d3barchartId")
+                        .append("svg:svg")
+                        .attr("width", width)
+                        .attr("height", height);
+        
+        
+        //draw barchart which will create bars (svg rectangel) in canvas using our x & y scale function to place them in appropriate place
+        svg.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.quarter); })
+            .attr("width", 25)
+            .attr("y", height)
+            .attr("height", 0)
+            .transition()
+            .delay(function(d) { return y(d.revenue); })
+            .duration(1000)
+            .attr('y', function(d) { return y(d.revenue); })
+            .attr('height', function(d) { return (height) - y(d.revenue); });
+        
+        //format revenue    
+        var formatter = new google.visualization.NumberFormat({prefix: '$', negativeColor: 'red', negativeParens: true});  
+        
+        //Add tooltip to bar on hover
+        svg.selectAll("rect").on("mouseover", function(d) {
+        	console.log("selected d = "+JSON.stringify(d));
+			var xPosition = parseFloat(d3.select(this).attr("x"))+15;
+			var yPosition = parseFloat(d3.select(this).attr("y"))+15;
+			//Update Tooltip Position & value
+			d3.select("#tooltip")
+				.style("left", xPosition + "px")
+				.style("top", yPosition + "px")
+				.select("#revenueid")
+				.text(formatter.formatValue(d.revenue));
+			d3.select("#tooltip")
+				.select("#quarterid")
+				.text(d.quarter);
+			d3.select("#tooltip").classed("hidden", false)
+		})
+		.on("mouseout", function() {
+			//hide toolip
+			d3.select("#tooltip").classed("hidden", true);
+		});
+  
+    }
+    
+    /* D3js Tree Chart specific chart logic present in this code are modified version of d3 gallarey/mike bostock source code */
+    //tree chart init method
+    var treechart = {prop:{}, dom:{}, fn:{}};
+    chartapp.fn.treeinit = function(){
+    	
+    	treechart.prop.width = 1000;
+	    treechart.prop.height = 3600;
+	    treechart.prop.i = 0;
+	    treechart.prop.barHeight = 40,
+	    treechart.prop.barWidth = 800;
+	    treechart.prop.duration = 500;
+	    treechart.root = {};
+	
+		treechart.fn.tree = d3.layout.tree()
+		    .size([treechart.prop.height, 100]);
+		
+		treechart.fn.diagonal = d3.svg.diagonal()
+		    .projection(function(d) { return [d.y, d.x]; });
+		
+		treechart.dom.vis = d3.select("#d3treechartid").append("svg:svg")
+		    .attr("width", treechart.prop.width)
+		    .attr("height", treechart.prop.height)
+		  	.append("svg:g")
+		  	.attr("transform", "translate(20,30)");
+		
+		function moveChildren(node) {
+		    if(node.children) {
+		        node.children.forEach(function(c) { moveChildren(c); });
+		        node._children = node.children;
+		        node.children = null;
+		    }
+		}
+		var flare = {name:"report", children:[]};
+		chartapp.fn.traverse("root", chartapp.datastore.report, flare);
+		  flare.x0=0;
+		  flare.y0 = 0;
+		  treechart.root = flare;
+		  moveChildren(flare);
+		  chartapp.fn.treeupdate(treechart.root);
+		        
+    }
+    
+    //update tree nodes
+    chartapp.fn.treeupdate = function(source){
+    		// Compute the flattened node list. TODO use d3.layout.hierarchy.
+		  var nodes = treechart.fn.tree.nodes(treechart.root);
+		  
+		  // Compute the "layout".
+		  nodes.forEach(function(n, i) {
+		    n.x = i * treechart.prop.barHeight;
+		  });
+		  
+		  // Update the nodes…
+		  var node = treechart.dom.vis.selectAll("g.node")
+		      .data(nodes, function(d) { return d.id || (d.id = ++treechart.prop.i); });
+		  
+		  var nodeEnter = node.enter().append("svg:g")
+		      .attr("class", "node")
+		      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+		      .style("opacity", 1e-6);
+		
+		  // Enter any new nodes at the parent's previous position.
+		  nodeEnter.append("svg:rect")
+		      .attr("y", -treechart.prop.barHeight / 2)
+		      .attr("height", treechart.prop.barHeight)
+		      .attr("width", treechart.prop.barWidth)
+		      .style("fill", treechart.fn.nodecolor)
+		      .on("click", treechart.fn.nodeclick);
+		  
+		  nodeEnter.append("svg:text")
+		      .attr("dy", 3.5)
+		      .attr("dx", 5.5)
+		      .text(function(d) { return d.name; })
+		      .style("font-size","18px");
+		  
+		  // Transition nodes to their new position.
+		  nodeEnter.transition()
+		      .duration(treechart.prop.duration)
+		      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+		      .style("opacity", 1);
+		  
+		  node.transition()
+		      .duration(treechart.prop.duration)
+		      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+		      .style("opacity", 1)
+		    .select("rect")
+		      .style("fill", treechart.fn.nodecolor);
+		  
+		  // Transition exiting nodes to the parent's new position.
+		  node.exit().transition()
+		      .duration(treechart.prop.duration)
+		      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+		      .style("opacity", 1e-6)
+		      .remove();
+		  
+		  // Update the links…
+		  var link = treechart.dom.vis.selectAll("path.link")
+		      .data(treechart.fn.tree.links(nodes), function(d) { return d.target.id; });
+		  
+		  // Enter any new links at the parent's previous position.
+		  link.enter().insert("svg:path", "g")
+		      .attr("class", "link")
+		      .attr("d", function(d) {
+		        var o = {x: source.x0, y: source.y0};
+		        return treechart.fn.diagonal({source: o, target: o});
+		      })
+		    .transition()
+		      .duration(treechart.prop.duration)
+		      .attr("d", treechart.fn.diagonal);
+		  
+		  // Transition links to their new position.
+		  link.transition()
+		      .duration(treechart.prop.duration)
+		      .attr("d", treechart.fn.diagonal);
+		  
+		  // Transition exiting nodes to the parent's new position.
+		  link.exit().transition()
+		      .duration(treechart.prop.duration)
+		      .attr("d", function(d) {
+		        var o = {x: source.x, y: source.y};
+		        return treechart.fn.diagonal({source: o, target: o});
+		      })
+		      .remove();
+		  
+		  // Stash the old positions for transition.
+		  nodes.forEach(function(d) {
+		    d.x0 = d.x;
+		    d.y0 = d.y;
+		    
+		  });		
+    
+    }
+    
+    
+    treechart.fn.nodecolor = function(d) {
+  		return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
+	}
+	
+	treechart.fn.nodeclick = function(d) {
+	  if (d.children) {
+	    d._children = d.children;
+	    d.children = null;
+	  } else {
+	    d.children = d._children;
+	    d._children = null;
+	  }
+	  chartapp.fn.treeupdate(d);
+	}
+    
+    //create nested parent child data structure similar to flare.json for d3 tree chart from salesforce metadata api result
+	chartapp.fn.traverse = function(objname, allobj, treedata){
+		var index = 0;
+		for(prop in allobj){
+			var obj;
+			if(typeof allobj[prop] == "object"){
+				if(index > 15) {
+					//break at level 15 depth
+					return;
+				}
+				obj = {name:prop, children:[]};
+				treedata.children.push(obj)
+				chartapp.fn.traverse(prop, allobj[prop], treedata.children[index]);	
+				
+			}else{
+				obj = {name:prop+" - "+allobj[prop], children:[]};
+				treedata.children.push(obj);	
+			}
+			index++;
+		}
+	}
+    
+    
+    
+ 	
+	//page creation helper which gets the current pageid and calles respective js method to draw chart	 	
+ 	chartapp.fn.createpages = function(event, ui){
+        event.preventDefault();
+	    var currentpageid = $.mobile.activePage.attr("id") || "";
+		//alert(" page = "+currentpageid);
+		if(currentpageid && currentpageid.length>1){
+//jc		    $.mobile.showPageLoadingMsg();
+		    $.mobile.loading( 'show' );
+		  	if(currentpageid =="oppty"){
+		  		//alert("draw datatable for page = "+currentpageid);
+		  		var cols = chartapp.datastore.datatable.view? chartapp.datastore.datatable.view.getViewColumns() : [];
+		  		chartapp.fn.datatable(cols);
+		  	}
+		  	if(currentpageid =="gridlayout"){
+		  		chartapp.fn.geochart();
+		  		chartapp.fn.donut();
+		  		//console.log("window wdith= "+$(window).width()+", height = "+$(window).height());
+                //CSS to collapse
+                if ($(window).width() < 700) {
+                    $('.ui-block-a, .ui-block-b, .ui-block-c').addClass('blocks');
+                }else{
+                    $('.ui-block-a, .ui-block-b, .ui-block-c').removeClass('blocks');
+                }
+		  	}		  	
+		  	if(currentpageid =="revenue"){
+		  		chartapp.fn.revenuechart();
+		  	}
+		  	if(currentpageid=="d3linechartpageid"){
+		  		chartapp.fn.d3linechart();
+		  	}
+		  	if(currentpageid=="d3barchartpageid"){   
+                chartapp.fn.d3barchart();
+            } 
+            if(currentpageid=="d3treechartpageid"){
+                chartapp.fn.treeinit();
+            }
+//jc            $.mobile.hidePageLoadingMsg();
+		    $.mobile.loading( 'hide' );
+		}	
+ 	}              
+    
+    //page show event handler
+    $(document).delegate('.ui-page', 'pagebeforehide', function (event, ui) {
+        //do some cleanups
+        chartapp.fn.cleanuphtml();
+        
+    });
+    
+    //delege handler for pageshow
+    $(document).delegate('.ui-page', 'pageshow', function (event, ui) {
+		chartapp.fn.createpages(event, ui);	  
+	});
+		
+	//page resize event handler we use resize instead of orientation since it works better
+	$(window).resize(function(event, ui){
+		chartapp.fn.cleanuphtml();
+		chartapp.fn.createpages(event, ui);
+	});
+	
+	//clean up helper to remove permenantly
+	chartapp.fn.cleanuphtml = function(){
+	   $("#d3barchartId").empty();
+	   $("#d3linechartid").empty();
+	   $("#d3treechartid").empty();
+	}	
+    
+    //on document ready make a callout to salesforce to get our report meta-data and data	
+    $(document).ready(function(){
+//jc        $.mobile.showPageLoadingMsg();
+        $.mobile.loading( 'show' );
+        //create new instance of forcetk which our rest api client to access salesforce reports and any other custom objects        	
+        
+//remove        var client = new forcetk.Client();
+        //assign our current session id
+//remove    	client.setSessionToken('{!$Api.Session_ID}');
+    	//small recommended fix to connection error
+//remove    	client.proxyUrl = null;
+//remove		client.instanceUrl = '';
+		//make a callout to our report services url and handle the response when its ready using callback method
+//remove        client.ajax("/v29.0/analytics/reports/00OU0000001XjUg?includeDetails=true", function(response){
+//remove            console.log("It Works! "); 
+//remove            chartapp.datastore.report = response;
+//remove            chartapp.fn.initdata(response);
+//remove        }, 
+//remove        function(jqXHR, textStatus, errorThrown){
+//remove            console.log("Error: "+jqXHR.status+" "+jqXHR.statusText);    
+//remove            console.log(jqXHR.responseText);
+//remove        });
+//        $.mobile.hidePageLoadingMsg();
+        $.mobile.loading( 'hide' );
+    });
+         
+    </script>

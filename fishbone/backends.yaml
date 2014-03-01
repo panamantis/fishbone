@@ -1,0 +1,49 @@
+backends:
+- name: dynamo
+  class: B2
+  instances: 1
+  options: dynamic
+
+
+#http://dynamo.truthkit-hdr.appspot.com
+
+
+# BACKGROUND THREAD
+# Code running on a backend can start a background thread, a thread that can "outlive" the request that spawns it. They allow backend instances to perform arbitrary periodic or scheduled tasks or to continue working in the background after a request has returned to the user.
+
+
+# Class of machine:
+#B1	128MB	600MHz	$0.08
+#B2 (default)	256MB	1.2GHz	$0.16
+#B4	512MB	2.4GHz	$0.32
+#B8	1024MB	4.8GHz	$0.64
+
+# Options:
+#dynamic Defaults to resident instances. This option sets the backend to use dynamic instances rather than resident instances.
+#failfast-Experimental! The failfast option disables pending queues, so that an instance that is busy returns an HTTP 503 error immediately when it receives a new request. You can achieve this same behavior by adding an X-AppEngine-FailFast header to requests, and the header is not experimental.
+#public-Experimental! Sets backend access to public. Public backends can serve external HTTP requests from the web. See Public and Private Backends for more information.
+
+
+
+
+
+#instance type: dynamic (Upon receipt of an HTTP request)
+# - shutdown: After sitting idle for a few minutes.
+
+
+
+##This backend has five instances of the instance class B8.
+#- name: memdb
+#  class: B8
+#  instances: 5
+##  uses the default class and options, but with ten instances. This backend defines crawler.py as the start handler.
+#- name: crawler
+#  instances: 10
+#  start: crawler.app
+## using the default class with one instance, and configured with failfast to disable pending queue behavior.
+#- name: worker
+#  options: failfast
+## used to execute long-running commands issued by admins of the application.
+#- name: cmdline
+#  options: dynamic
+  

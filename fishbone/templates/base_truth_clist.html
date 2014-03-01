@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<!-- Revisions -->
+<!-- 0v1 JC  2010?    Modified CSS location and all images to /images -->
+<!-- 0v2 JC: Jan 31, 2013 - use different main.css to minimize body margins -->
+
+
+	<!-- LOADS ALL CSS AND JS MEDIA FILES -->
+	<!-- MOBILE VERSION OVERWRITES TO SAVE ON BANDWIDTH -->
+	{% block load_all_css_and_js %}
+		{% load media %}
+	{% endblock %}
+
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
+{% block main_html_w_cache %}
+<html xmlns="http://www.w3.org/1999/xhtml" manifest="/js/cache.manifest">
+{% endblock %}
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	{% block title %}
+	<title>Panamantis (overwritten!)</title>
+	{% endblock %}
+	
+    {% block css %}
+    {% endblock %}
+    
+    {% block seo %}
+    {% endblock %}
+
+    {% block load_main_js %}
+	    {% include_media 'main.css' %}
+	    {% include_media 'main.js' %} <!-- Straight from settings.py media generator bundle may load all-->
+    {% endblock %}
+    
+    {% block js %}
+    {% endblock %}
+    
+    {% block preload_js %}
+    {% endblock %}
+
+    {% block extra-head %}
+    {% endblock %}
+	
+	{% block analytics %}
+<!-- @@@JC - Put analytics here or uncomment this to see where missing @@@ -->
+<!-- Google Analytics: If the code does not come immediately before the </head>, then google analytics will not pick up the code and will report that tracking is not installed. -->
+	{% endblock %}
+	
+	<!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  	{% block mobile-viewport-optimization %}
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	{% endblock mobile-viewport-optimization %}
+
+  	{% block favicons %}
+  	<link rel="shortcut icon" href="/images/favicon.ico">
+  	
+  	<meta name="apple-mobile-web-app-capable" content="yes" />  <!-- This may have fixed the splash screen -->
+  	<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  	<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+  	<link rel="apple-touch-icon-57x57" href="/images/apple-touch-57x57-precomposed.png">
+  	<link rel="apple-touch-icon-57x57-precomposed" href="/images/apple-touch-57x57-precomposed.png">
+  	
+<!--  	<link rel="apple-touch-startup-image" href="/images/truthkit_splash_screen_320x460.png"/> --> 
+  	<!-- Not sure which splash works: -->
+  	<!-- Apparently use media queryies -->
+  	<link rel="apple-touch-startup-image" href="/images/truthkit_splash_screen_320x460.png" media="screen and (max-device-width: 320px)" />
+<!--  	<link rel="apple-touch-startup-image" href="/images/truthkit_splash_screen_320x460.png" media="(max-device-width: 480px) and not (-webkit-min-device-pixel-ratio: 2) " /> -->
+  	
+  	{% endblock favicons %}
+	
+	
+<!-- @@@JC -  Overwrite above CSS with app specific changes @@@ -->
+	{% block addl_styles %}
+		<!--[if IE]>
+	    <style type="text/css" media="all">.borderitem {border-style: solid;}</style>
+	    <![endif]-->
+	{% endblock %}
+
+</head> 
+
+<!-- Note:  Padding necessary as per bootstrap documentation -->
+<body style="margin: 0; padding-top: 50px; border-style:none; overflow-y:hidden;">
+
+{% block debug %}
+<!-- JC121 Holder for unreleased features.  Likely just raw html -->
+{% endblock %}
+
+<!-- @@@JC - wrapper centers webpage 960 @@@ -->
+<div id="wrapper">
+
+	{% block content %}
+	Put html body here
+	{% endblock %}
+
+</div>
+
+
+</body>
+</html>
