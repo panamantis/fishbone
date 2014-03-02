@@ -45,13 +45,27 @@ def main_index(request,*args,**kwargs):
                                                                      'var_django_view': var_django_view
                                                                      })
     
-def main_fashion(request,*args,**kwargs):
+def main_sorter(request,*args,**kwargs):
     ###############################################################
     var_django_view=""
     return direct_to_template(request, 'fashion.html', {
                                                                      'var_django_view': var_django_view
                                                                      })
     
+def main_system(request,*args,**kwargs):
+    ###############################################################
+    var_django_view=""
+    return direct_to_template(request, 'system.html', {
+                                                                     'var_django_view': var_django_view
+                                                                     })
     
+
+def main_movement(request,*args,**kwargs):
+    ###############################################################
+    var_django_view=""
+    return direct_to_template(request, 'movement.html', {
+                                                                     'var_django_view': var_django_view
+                                                                     })
     
+        
     

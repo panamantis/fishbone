@@ -1,16 +1,57 @@
-application: cguardianmarketing
-version: 3
+application: tempdebug
+
+version: opendata2
 runtime: python27
 api_version: 1
-threadsafe: true
+threadsafe: yes  
+
+default_expiration: '365d'
 
 builtins:
-- appstats: on
+- appstats: off
 
-handlers:
-- url: /static
-  static_dir: static
+inbound_services:
+- warmup
+- mail
+- channel_presence
+
+libraries:
+- name: django
+  version: latest
   
+- name: lxml   
+  version: latest
+- name: PIL
+  version: latest
+- name: numpy
+  version: latest
+- name: pycrypto
+  version: latest 
+  
+handlers:
+
+- url: /_ah/remote_api 
+  script: google.appengine.ext.remote_api.handler.application 
+  login: admin 
+  
+- url: /_ah/queue/deferred
+  script: djangoappengine.deferred.handler.application
+  login: admin
+
+- url: /robots.txt
+  static_files: static/robots.txt
+  upload: static/robots.txt
+
+- url: /jqtouch
+  static_dir: static/jqtouch/
+  
+- url: /fantasm.*
+  script: fantasm.main
+  
+- url: /favicon.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon.ico
+
 - url: /css
   static_dir: static/css/
 
@@ -23,53 +64,27 @@ handlers:
 - url: /js
   static_dir: static/js/
   
-- url: /fashion
-  static_dir: static/fashion/
+- url: /static
+  static_dir: static/
 
-- url: /favicon.ico
-  static_files: static/assets/img/icons/favicon.ico
-  upload: static/assets/img/icons/favicon.ico
+- url: /media/admin
+  static_dir: django/contrib/admin/media/
 
-- url: /apple-touch-icon-precomposed.png
-  static_files: static/assets/img/icons/apple-touch-icon-57x57-precomposed.png
-  upload: static/assets/img/icons/apple-touch-icon-57x57-precomposed.png
-
-- url: /apple-touch-icon-144x144-precomposed.png
-  static_files: static/assets/img/icons/apple-touch-icon-144x144-precomposed.png
-  upload: static/assets/img/icons/apple-touch-icon-144x144-precomposed.png
-
-- url: /apple-touch-icon-114x114-precomposed.png
-  static_files: static/assets/img/icons/apple-touch-icon-114x114-precomposed.png
-  upload: static/assets/img/icons/apple-touch-icon-114x114-precomposed.png
-
-- url: /apple-touch-icon-72x72-precomposed.png
-  static_files: static/assets/img/icons/apple-touch-icon-72x72-precomposed.png
-  upload: static/assets/img/icons/apple-touch-icon-72x72-precomposed.png
-
-- url: /apple-touch-icon-57x57-precomposed.png
-  static_files: static/assets/img/icons/apple-touch-icon-57x57-precomposed.png
-  upload: static/assets/img/icons/apple-touch-icon-57x57-precomposed.png
-
-- url: /apple-touch-icon.png
-  static_files: static/assets/img/icons/apple-touch-icon-57x57-precomposed.png
-  upload: static/assets/img/icons/apple-touch-icon-57x57-precomposed.png
-
-- url: /robots.txt
-  static_files: robots.txt
-  upload: robots.txt
-
-- url: /humans.txt
-  static_files: humans.txt
-  upload: humans.txt
+- url: /media
+  static_dir: _generated_media/
+  expiration: '365d' 
+  
+- url: /raw
+  static_dir: static/raw/
+  application_readable: true
+  
+- url: /devcon/.*
+  script: google.appengine.ext.admin.application
+  login: admin
 
 - url: /.*
-  script: main.application
-  
-
-inbound_services:
-- mail
-
-
-libraries:
-  - name: django
-    version: 1.4
+  script: djangoappengine.main.application
+- url: /cache.manifest
+  static_files: cache.manifest
+  mime_type: text/cache-manifest
+  upload: cache.manifest

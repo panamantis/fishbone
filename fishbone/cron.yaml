@@ -1,6 +1,29 @@
 cron:
-# - description: something something something
-#   url: /
-#   schedule: every 24 hours
+- description: keep alive
+  url: /
+  schedule: every 2 minutes
 
+- description: Fantasm Scrubber
+  url: /fantasm/fsm/FantasmScrubber/?age=90&method=POST
+  schedule: every day 01:00
+  
+# Oct 24, 2012 - JC: TypeError: 'module' object is not callable
+#- description: FSM1 - load balanced
+#  url: /fantasm/fsm/fsm1/
+#  schedule: every 30 minutes
 
+- description: Cron interface handler
+  url: /_ah/cron_handler/1
+  schedule: every 30 minutes
+  
+- description: Cron interface handler2
+  url: /_ah/cron_handler/daily
+  schedule: every day 07:00
+  
+- description: Cron interface handler3
+  url: /_ah/cron_handler/daily2
+  schedule: every day 07:30
+  
+- description: Kernel Cron
+  url: /w1/api/tool/kernel_cron/run
+  schedule: every 30 minutes

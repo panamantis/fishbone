@@ -114,9 +114,10 @@ a:hover {
 
 .header {
   clear: both;
+  margin-top: 5px;
   padding: 0 5%;
   position: relative;
-  height: 270px;
+  height: 175px; /* Main was big at 270 */
 }
 
 .header h1 {
@@ -169,7 +170,7 @@ a:hover {
 
 .graphic {
   margin: 15px 0 0 0;
-  padding: 40px 5%;
+  padding: 10px 3% 0px 3%;
   background: #222;
   overflow: hidden;
 }
@@ -198,8 +199,8 @@ h2 {
   font-family: "nyt-franklin", Arial;
   position: relative;
   display: block;
-  margin: 0 0 20px 0;
-  padding: 0 0 20px 0;
+  margin: 0 0 0px 0; /* JC */
+  padding: 0 0 0px 0; /* JC */
 }
 
 .collection:last-child {
@@ -416,23 +417,61 @@ body {
 <script src="/static/fashion/js/jse7tmw.js"></script>
 <style type="text/css">.tk-nyt-cheltenham{font-family:"nyt-cheltenham",sans-serif;}.tk-nyt-karnak-display-130124{font-family:"nyt-karnak-display-130124",sans-serif;}.tk-nyt-franklin{font-family:"nyt-franklin",sans-serif;}</style><link href="/static/fashion/css/jse7tmw-d.css" rel="stylesheet"><script type="text/javascript">try { Typekit.load(); } catch (e) {}</script>
 <script src="/static/fashion/js/d3_lib.js"></script>
+<script src="/static/js/d3.v3.3.10.min.js"></script>
 <script src="/static/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> 
+<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
+<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
 
+
+<script type="text/javascript" src="http://www.nihilogic.dk/labs/canvas2image/canvas2image.js"></script>
+<script type="text/javascript" src="http://www.nihilogic.dk/labs/canvas2image/base64.js"></script>
 
 </head>
 
 
 <body data-twttr-rendered="true">
 
+<!--  DROP IN IMAGES -->
+<div class="image" id="open_data_interest_graph"></div>
+<div class="image" id="open_data_flag_logo"></div>
+<div class="image" id="open_data_arrows"></div>
+<div class="image" id="open_data_book"></div>
+<style>
+
+#open_data_interest_graph:before {
+    content:url("/static/images/open_data_interest_graph.png");
+    float:right;
+    right:10px;
+    position:absolute;
+}
+#open_data_flag_logo:before {
+    content:url("/static/images/open_data_flag_logo.png");
+    float:left;
+    left:0px;
+    top:5px;
+    position:absolute;
+    
+    display: block;
+    
+    width: 160px;
+    height: 160px;
+    
+}
+
+
+</style>
+
+
 
 
 <div class="header">
-  <h1>Hydro Dataset Sorter</h1>
+  <h1>Open Actions Explorer</h1>
   <div class="dateline">
-    <div class="byline">By <span>Jon</span></div>
-    <div class="date">February 28, 2014</div>
+    <div class="byline">By <span>Jon Clement & Team Dashy</span></div>
+    <div class="date">March 4, 2014</div>
   </div>
-  <p class="header-summary">Based off geo-spatial data, this interface allows you to construct.
+  <p class="header-summary">This visualization and explorer helps you assemble the building blocks of Action.
   </p><p><a id="fullscreen" href="#" style="">View Full Screen</a>
   </p>
 </div>
@@ -445,23 +484,22 @@ body {
 <!--         <canvas width="693" style="height: 225px; width: 693px;" height="225"></canvas></a> -->
         
         <div class="description">
-        <h3>Hydro</h3>
-        <p>Hydro electric readings. </p>
-        <p class="related">Read more: <a href="http://runway.blogs.nytimes.com/2013/09/11/michael-kors-doesnt-break-a-sweat/">Michael Kors Doesnâ€™t Break a Sweat</a>
-        <!-- <p><a href="http://www.nytimes.com/fashion/runway/michael-kors/spring-2014-rtw/1?fingerprint=true">View Collection</a> -->
+        <h3>Share in the centralized discussions</h3>
+        <p>Use the slide sorter to drag items of interest to your Interest Graph.  This helps us build your custom news feed and interest profiler.</p>
+        <p class="related">Read more: <a href="http://data.gc.ca/">Visit the Open Data Government Website</a>
       </p></div>
       
       <ul style="width: 693px;" class="annotations">
         <li data-range="[0,0]" style="left:0px;width:13px;">
-          <div class="annotation">Note the details of this card</div>
+          <div class="annotation">This card highlights an emerging issue.</div>
           <div class="annotation-bar"></div>
         </li>
         <li data-range="[10,10]" style="left:132px;width:13px;">
-          <div class="annotation">This element highlights the benefit of open data</div>
+          <div class="annotation">This element leverages Open Data</div>
           <div class="annotation-bar"></div>
         </li>
         <li data-range="[26,26]" style="left:345px;width:13px;">
-          <div class="annotation">This card was a custom creation</div>
+          <div class="annotation">This card matches your interest profile</div>
           <div class="annotation-bar"></div>
         </li>
         <li data-range="[42,42]" style="left:558px;width:13px;">
@@ -470,20 +508,54 @@ body {
         </li>
       </ul>
     </div>
+  </div><!--  Editor picks -->
+  </div><!--  Graphics -->
+    
+    <div class="state_description" >
+        <h3>Our Problem Solving Process</h3>
+        <p>Similar to collecting a census, we begin our collaboration by acknowledging all participants and sources.</p>
+        <p>Click on the squares to explore the Concept repositories.</p>
+    </div>
+    <style>
+    .state_description {
+        padding: 0px 0px 0px 3%;
+        line-height: 1.4em;
+        width: 220px;
+        font-family: "nyt-franklin",Arial;
+        font-size: 15px;
+        font-weight: 200;
+        color: "#999999";
+        float: left;
+        position: absolute;
+    }
+    </style>
     
     
     
 <div class="footer">
   <div class="footer-content">
-    Elements sourced from Hydro Electric Dataset
+    Elements sourced from the Canada Open Data Project
   </div>
 </div>
+
+<!--     <div id='svg-container'> <svg xmlns="http://www.w3.org/2000/svg" version="1.1"> <rect x="50" y="20" width="150" height="100" style="fill:blue;stroke:pink;stroke-width:5;fill-opacity:0.1;stroke-opacity:0.9" /> </svg> </div>-->
+<!--    <canvas id="svg-canvas" width="150" height="100"></canvas>-->
+    
+    <div id='the_cards'>
+<!--          <img id="MyPix" src=""/> -->
+    </div>
+    
 
 <!--[if gt IE 8]><!-->
 <script>(function() {
 
+
 var width,
     height = 225;
+
+
+var         j_image_width=400;
+var         j_image_height=225;
 
 var graphic = d3.select(".graphic");
 
@@ -601,8 +673,8 @@ function enableFisheye(d) {
 
   var normalWidth = width / d.size,
       image = new Image,
-      imageWidth = 105,
-      imageHeight = 225,
+      imageWidth = j_image_width,
+      imageHeight = j_image_height,
       desiredDistortion = 0,
       desiredFocus,
       progress = 0,
@@ -616,7 +688,7 @@ function enableFisheye(d) {
 
 //  image.src = "http://graphics8.nytimes.com/newsgraphics/2013/09/13/fashion-week-editors-picks/assets/thumbs-" + pixelRatio + "/" + d.slug + ".jpg";
   image.src = "/img/mk.png";
-  image.onload = initialize;
+//  image.onload = initialize;
 
   // Progress bar
   d3.timer(function() {
@@ -648,10 +720,231 @@ function enableFisheye(d) {
         .on("touchmove", mousemove)
         .on("touchend", mouseout);
 
+    generate_cards();
     render();
   }
+  
+var the_dataset;
+
+// Choose dataset based on goto
+the_url=String(window.location);
+the_url=the_url.replace(/.*goto=/,"");
+
+if (the_url=="Teams") {
+    the_json_url="/static/js/teams.json";
+}
+else if (the_url=="Campaigns") {
+    the_json_url="/static/js/data1000.json";
+}
+else if (the_url=="Apps") {
+    the_json_url="/static/js/apps.json";
+}
+else if (the_url=="Ideas") {
+    the_json_url="/static/js/people.json";
+}
+else {
+    the_json_url="/static/js/apps.json";
+    the_json_url="/static/js/teams.json";
+    the_json_url="/static/js/data1000.json";
+}
+
+
+d3.json(the_json_url, function(json) {
+    the_dataset=json.results;
+    initialize();
+});
+
+
+//the_dataset_url="/static/js/data1000.json";
+//var the_dataset_data;
+//d3.json(the_dataset_url, function(json) {
+//    the_dataset=json.results;
+//    initialize();
+//});
+  
+  
+  
+
+var imageContainer=[];
+var imageElement="";
+
+  function randomInt(the_size) {
+      var the_fraction=Math.random();
+      var the_num=parseInt(the_fraction*the_size);
+      return the_num;
+  }
+  
+  function generate_cards() {
+      var canvas2 = document.createElement('canvas');
+      canvas2.width = j_image_width;
+      canvas2.height = j_image_height;
+      canvas2.id = "canvas2";
+      
+       var nodes8=[]
+       b = {id: "xxx",x:0,y:0,value:"0"}
+ 
+       var images_array=[];
+       
+       // Generate image for each potential
+       for (var ii = 0, n = d.size; ii < n+1; ++ii) { //Bug generate 1 more!
+           nodes8.push(b);
+       };
+ 
+           // CREATE n separate svg blocks to be rendered
+             var svgContainer = d3.select("body")
+                    .data(nodes8)
+                    .enter()
+             .append("svg")
+                              .attr("id",function(d,i) {
+                                            one_shift=i-1;
+                                            return "raw_svg_"+one_shift;
+                                            })
+                              .attr("width",j_image_width)
+                              .attr("height",j_image_height)
+                              .style("display","block")
+                              ;
+                                      
+                                      
+       for (var ii = 0, n = d.size; ii < n; ++ii) {
+            //################################### CARD
+            
+            // Slip in json style data 
+            var nodes19=[]
+            data_index=randomInt(the_dataset.length);
+            data_index=ii;
+            b=the_dataset[data_index];
+            
+            //b = {id: "xxx",x:0,y:0,value:"0"}
+            nodes19.push(b);
+             
+             var svgG=d3.select("#raw_svg_"+ii).selectAll('svg')
+                    .data(nodes19)
+                .enter().append("g")
+                    .attr("id","container_sheet")
+                    ;
+                    
+             var rect_card = svgG.append("rect")
+                .attr("id", "raw_rect")
+                .attr("x", 0)
+                .attr("y", 0)
+                .attr("width", j_image_width)
+               .attr("height", j_image_height)
+               .style("fill", "black")
+               .style("stroke", "pink")
+               .style("stroke-width", 5)
+               .style("fill-opacity", 0.1)
+               .style("stroke-opacity", 0.9) ;
+               
+//nope       var card_image= svgG.append("img")
+//nope        .attr("xlink:href", "https://canadianopendataexperience.com/system/uploads/team/logo/58/large_icon.png")
+//nope        .attr("id", "clip_image")
+//nope        .attr("class", "clip_image_class")
+//nope        .attr("x",0) //patch: 5 pixel offset issue
+//nope        .attr("y",0)
+//nope        .attr("width",j_image_width)
+//nope        .attr("height",j_image_height)
+//nope//        .style("opacity",".3")
+//nope        ;
+               
+             var the_pointer=25;
+             var card_title= svgG.append("svg:text")
+                             .attr("id", "the_score")
+                             .text(function(d,i) { 
+                                 var temp=ii+1;
+                             return d.title;})
+                             .attr("dx", function(d) { return 5;})
+                             .attr("dy", function(d) { return the_pointer;})
+                             .style("fill",function(d) { return "white";})
+                             .style("font-size","28px");
+                             
+             bbox = card_title.node().getBBox();
+             the_pointer=the_pointer+bbox.height+3;
+             
+             
+             the_text="This is a really long description which I will wrap myself ok then  ";
+             the_text=the_dataset[data_index].description;
+             
+             var myRegexp = /(.{1,40})\s/g;
+             var match = myRegexp.exec(the_text);
+             var the_new_text=""
+             while (match != null) {
+                 the_new_text=match[0];
+                 match = myRegexp.exec(the_text);
+                 
+                 if (the_pointer<200) {
+                     var card_description= svgG.append("svg:text")
+                             .attr("id", "the_score")
+                             .text(function(d,i) { return the_new_text;})
+                             .attr("dx", function(d) { return 5;})
+                             .attr("dy", function(d) { return the_pointer;})
+                             .style("fill",function(d) { return "white";})
+                             .style("font-size","23px");
+                 }
+                             
+                 bbox = card_description.node().getBBox();
+                 the_pointer=the_pointer+bbox.height+2;
+             }
+             
+             
+             the_pointer=the_pointer+6;
+             
+             
+             var card_link= svgG.append("svg:text")
+                             .attr("id", "the_score")
+                             .text(function(d,i) { return "Link: "+d.url;})
+                             .attr("dx", function(d) { return 10;})
+                             .attr("dy", function(d) { return the_pointer;})
+                             .style("fill",function(d) { return "white";})
+                             .style("font-size","18px");
+                             
+             //################################### CARD
+       };
+                             
+       
+       // Generate image for each potential
+       for (var ii = 0, n = d.size; ii < n; ++ii) {
+           console.log("Creating custom at "+ii);
+//works hardcoded           var svgContent="<svg xmlns='http://www.w3.org/2000/svg' version='1.1'><rect x='0' y='0' width='"+j_image_width+"' height='"+j_image_height+"' style='fill:blue;stroke:pink;stroke-width:5;fill-opacity:0.1;stroke-opacity:0.9' /> </svg>";
+//works hardcoded           svgContent=svgContent.trim();
+           
+           
+//           $('#raw_svg_'+ii).css("display","block");
+            var container = $('#raw_svg_'+ii).html();
+           svgContent=container.trim();
+           $('#raw_svg_'+ii).css("display","none");
+           
+           canvg(canvas2, svgContent);
+           var theImage = canvas2.toDataURL('image/jpeg');
+           images_array.push(theImage);
+       };
+       
+       
+    
+      var card_container=d3.select("#the_cards");
+      // Append images
+      card_container.selectAll("img")
+        .data(nodes8)
+        .enter().append("img")
+        .attr("id",function(d,i) {return "MyPix_"+i})
+        .attr("src","")
+        .style("display","none")
+        ;
+        
+       for (var i = 0, n = d.size; i < n; ++i) {
+           imageElement = document.getElementById("MyPix_"+i);  // Get the img object.
+           imageElement.src = images_array[i];  //theImage;    
+//           imageElement.src = theImage;    
+           imageContainer.push(imageElement);
+       };
+      
+//      imageElement = document.getElementById("MyPix");  // Get the img object.
+//      imageElement.src = theImage;    
+//      imageContainer.push(imageElement);
+
+  };
 
   function render() {
+    console.log("Render called");
     annotation
         .style("left", function(d) { return Math.round(x(d.range[0] * normalWidth)) - 4 + "px"; })
         .style("width", function(d) { return Math.round(x((d.range[d.range.length - 1] + 1) * normalWidth)) - Math.round(x(d.range[0] * normalWidth)) - 1 + "px"; })
@@ -660,8 +953,9 @@ function enableFisheye(d) {
 
     var context = d.context;
     context.clearRect(0, 0, width, height);
+    
 
-    for (var i = 0, n = d.size; i < n; ++i) {
+   for (var i = 0, n = d.size; i < n; ++i) {
       var x0 = x(i * normalWidth),
           x1 = x((i + 1) * normalWidth),
           dx = Math.min(imageWidth, x1 - x0);
@@ -677,7 +971,9 @@ function enableFisheye(d) {
       //  in float dw, // destionation width
       //  in float dh  // destination height
       
-      context.drawImage(image, Math.round((i * imageWidth + (imageWidth - dx) / 2) * pixelRatio), 0, dx * pixelRatio, imageHeight * pixelRatio, x0, 0, dx, height);
+      imageElement=imageContainer[i];
+      context.drawImage(imageElement, 0, 0, imageElement.width, imageElement.height, x0, 0, dx, height);
+//      context.drawImage(image, Math.round((i * imageWidth + (imageWidth - dx) / 2) * pixelRatio), 0, dx * pixelRatio, imageHeight * pixelRatio, x0, 0, dx, height);
       
       context.beginPath();
       context.moveTo(x0, 0);
@@ -734,9 +1030,10 @@ function enableFisheye(d) {
 }
 
 function fisheye() {
+  //org max 1 dist 3
   var min = 0,
-      max = 1,
-      distortion = 3,
+      max = 3,
+      distortion = 6,
       focus = 0;
 
   function G(x) {
@@ -770,7 +1067,12 @@ function fisheye() {
   return fisheye;
 }
 
-})();</script>
+})();
+
+
+
+
+</script>
 
 <style>
 #svg_element{
@@ -789,6 +1091,9 @@ left:0;
 
 <div id="svg_layer">
 <script>
+
+ var j_image_width=200;
+ var j_image_height=150;
  // Get size of window
  var nodes9=[]
  b = {id: "xxx",x:0,y:0,value:"0"}
@@ -822,17 +1127,12 @@ left:0;
             .enter().append("g")
                 .attr("id","container_score")
                 .attr("display","none");
-.text(function(d) { 
-                                temp="";
-                                if (d.value>=0) { temp="+";}
-                                else { temp="-"; }
-                                return temp+d.value;}) 
 
  var rect_card = svgCard.append("rect")
-                            .attr("x", -50)
-                            .attr("y", -100)
-                            .attr("width", 100)
-                            .attr("height", 200)
+                            .attr("x", -j_image_width/2)
+                            .attr("y", -j_image_width/2)
+                            .attr("width", j_image_width)
+                            .attr("height", j_image_height)
                             .style("fill", function(d) { return "grey"; })
                             .style("opacity", "0.3")
                             ;
@@ -846,7 +1146,7 @@ left:0;
                             .style("opacity", "0")
                             ;
                             
- var text_score= svgScore.append("svg:text")
+ var text_score2= svgScore.append("svg:text")
                          .attr("id", "the_score")
                          .text(function(d) { 
                                 temp="";
@@ -857,6 +1157,16 @@ left:0;
 //                         .attr("dy", function(d) { return -d.size/2-4;})
                          .style("fill",function(d) { return "white";})
                          .style("font-size","44px");
+                         
+ var text_score3= svgScore.append("svg:text")
+                         .attr("id", "the_score3")
+                         .text(function(d) { 
+                                return "Rank the Usefulness";})
+                         .attr("dx", function(d) { return -65;})
+                         .attr("dy", function(d) { return -40;})
+                         .style("fill",function(d) { return "gray";})
+                         .style("font-size","25px");
+                         
  d3.select("#container_score").attr("transform", function(d) { return "translate(" + svg_width/2 + ", 180)"; });    
      
                         
@@ -922,6 +1232,525 @@ svgContainer.on("mousemove", function() {
 
 </script>
 </div>
+
+
+
+<div id="svg_movement">
+<script>
+
+
+ var svg_width = window.innerWidth;
+ var svg_height = window.innerHeight;
+
+var width = svg_width,
+    height = svg_height,
+    padding = 6, // separation between nodes
+    maxRadius = 12;
+
+var n = 25, // total number of nodes
+    m_clusters = 9; // number of distinct clusters
+
+var color = d3.scale.category10()
+    .domain(d3.range(m_clusters));
+
+var x_range = d3.scale.ordinal()
+    .domain(d3.range(m_clusters))
+    .rangePoints([0, width], 1);
+console.info("Starting...");
+
+
+
+// Hard define stations
+
+var l_states=[]
+l_states.push("");             //0 watch as i generates here
+l_states.push("Ideas");             //1
+l_states.push("Problems");             //2
+l_states.push("Campaigns");             //3
+l_states.push("Teams");             //4
+l_states.push("Apps");             //5
+l_states.push("Users");             //6
+l_states.push("New Market");             //7
+l_states.push("Target Market");             //9
+
+var sta={};
+sta["Ideas"]=1;
+sta["Problems"]=2;
+sta["Campaigns"]=3;
+sta["Teams"]=4;
+sta["Apps"]=5;
+sta["Users"]=6;
+sta["New Market"]=7;
+sta["Target Market"]=8;
+
+var states=[]
+c=0;
+while (c<m_clusters) {
+    s={};
+    s["state"]=l_states[c];
+    s["count"]= 0;
+    
+    s["cx"]= x_range(c);
+    center_line=height/2;
+    center_line=35;
+    
+    if (c>sta["Users"]) {
+        s["cx"]= x_range(c)-10;
+        
+        s["cy"]= (center_line+100)+(c*5); //center
+        if (c==sta["New Market"]) { 
+            s["cy"]= center_line+140;
+        }
+        if (c==sta["Target Market"]) { 
+            s["cy"]= center_line+110;
+        }
+    }
+    else {
+        s["cy"]= center_line+(c*15);
+    }
+    
+    
+    states.push(s);
+    c=c+1;
+};
+
+
+function add_node(a_target) {
+
+    if (nodes.length<70) {
+    
+    n=n+1;
+    console.log("Adding node now: "+n);
+    if (a_target==0) {
+        var i = Math.floor(Math.random() * m_clusters);
+        
+            // Steer
+            //90% of time put into ideas
+            rbranch=Math.random();
+            if (rbranch<.8) { //80%
+                i=sta["Ideas"];
+            }
+            else if (rbranch<.9) { //10%
+                i=sta["Problems"];
+            }
+            
+            
+    }
+    else {
+        var i=a_target;
+    };
+    
+    
+    v = (i + 1) / m_clusters * -Math.log(Math.random());
+    
+    
+    // Add node logic
+    
+    // Log
+    states[i]["count"]+=1;
+    
+    console.log("Target: "+l_states[i]+" at: "+i+" internally "+states[i]["state"]+" is at "+states[i]["count"]);
+    
+    the_dict= {
+         radius: 7,
+         color: "grey",
+         cx: states[i]["cx"],
+         cy: states[i]["cy"], //target
+         id:i+"_new_"+Math.random(),
+         type:"null",
+         dest:l_states[i],
+         life:10000,
+    };
+    
+    nodes.push(the_dict);
+    }// End check nodes
+    
+};
+
+
+function redirect_node() {
+
+    //Hard coded logic
+    
+    //1. Ideas to campaigns,teams, problems, apps
+    
+    
+    // Campaign accepts (from ideas)
+    if (Math.random()<.2) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Ideas") {
+                d.dest="Campaigns";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from idea to campaign");
+            };
+        };
+      });
+    }
+    // Campaing accepts from problems
+    if (Math.random()<.15) { 
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Problems") {
+                d.dest="Campaigns";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Problem to Campaign");
+            };
+        };
+      });
+    }
+    
+    
+    // Teams accepts from Campaigns
+    if (Math.random()<.1) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Campaigns") {
+                d.dest="Teams";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Campaigns to teams");
+            };
+        };
+      });
+    }
+    
+    
+    // Apps accepts from Teams
+    if (Math.random()<.1) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Teams") {
+                d.dest="Apps";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Teams to Apps");
+            };
+        };
+      });
+    }
+    
+    // Users accepts from Apps
+    if (Math.random()<.2) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Apps") {
+                d.dest="Users";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Apps to Users");
+            };
+        };
+      });
+      // FORCE ADD NODES TO SIMULATE MULTIPLICATION EFFECT
+      add_node(sta["Users"]);
+      
+    }
+    
+    // New Market accepts from Users
+    if (Math.random()<.03) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Users") {
+                d.dest="New Market";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Users to New Market");
+            };
+        };
+      });
+    }
+    
+    // Target Market accepts from Users
+    if (Math.random()<.03) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Users") {
+                d.dest="Target Market";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Users to Target Market");
+            };
+        };
+      });
+    }
+    
+
+};
+
+
+
+
+
+function remove_node() {
+    n=n-1;
+    console.log("Removing node now: "+n);
+    var i = Math.floor(Math.random() * m_clusters);
+    nodes.splice(i,1);
+};
+
+function get_node_dict(i,v) {
+   the_dict= {
+    radius: Math.sqrt(v) * maxRadius,
+    color: color(i),
+    cx: states[i]["cx"],
+    cy: states[i]["cy"], //target
+    id:i+"_org",
+    type:"null",
+    dest:"null",
+    life:10000,
+  };
+  if (i<1) {
+    the_dict.radius=0;
+  }
+  
+  return the_dict;
+};
+
+var nodes = d3.range(n).map(function() {
+  var i = Math.floor(Math.random() * m_clusters),
+      v = (i + 1) / m_clusters * -Math.log(Math.random());
+      
+  return get_node_dict(i,v);
+});
+
+var force = d3.layout.force()
+    .nodes(nodes)
+    .size([width, height])
+    .gravity(0)
+    .charge(0)
+    .on("tick", tick)
+    .start();
+
+//function refresh_forces() {
+//    force.start();
+//};
+
+
+ 
+ var svg_width = window.innerWidth;
+ var svg_height = window.innerHeight;
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", svg_width)
+    .attr("height", svg_height);
+    
+var circle = svg.selectAll("circle"); //movement circles
+    
+
+// SETUP CONTAINERS                                   
+ // Get size of window
+ var nodes9=[]
+ b = {id: "xxx",x:0,y:0,value:"0"}
+ nodes9.push(b);
+ var containerState=svg.selectAll('svg')
+                .data(nodes9)
+            .enter().append("g")
+                .attr("id","containerState");
+
+
+
+
+c=0
+var jsonFoci = [];
+while (c<8) {
+    c=c+1;
+    the_d={ "x_axis": states[c]["cx"]-25, "y_axis": states[c]["cy"]+40, "radius": 50, "color" : "white","position":"fixed","type":"state_foci","label":l_states[c],"id":c+"_j" };
+    jsonFoci.push(the_d);
+}
+                         
+//var jsonFoci = [
+//   { "x_axis": 30, "y_axis": 0, "radius": 50, "color" : "green","position":"fixed","type":"state_foci","label":"Start","id":"0" },
+//   { "x_axis": 70, "y_axis": 0, "radius": 50, "color" : "purple","position":"fixed","type":"state_foci","label":"M1","id":"1"},
+//   { "x_axis": 120, "y_axis": 0, "radius": 50, "color" : "yellow","position":"fixed","type":"state_foci","label":"M2","id":"2"},
+//   { "x_axis": 170, "y_axis": 0, "radius": 50, "color" : "red"  ,"position":"fixed","type":"state_foci","label":"End","id":"3"}];
+   
+var jsonFoci_size=8;//sta.length;
+
+ var rects = containerState.selectAll("rect")
+                       .data(jsonFoci)
+                       .enter()
+                   .append("rect")
+                       .attr("x", function (d,i) { return d.x_axis;})
+                       .attr("y", function (d,i) { return d.y_axis;})
+//                       .attr("x", function (d,i) { 
+//                            separation=svg_width/(jsonFoci_size+1);
+//                            return (i+1)*separation; })
+//                       .attr("y", function (d) { return svg_height/2; })
+                       .attr("width", function (d) { return d.radius; })
+                       .attr("height", function (d) { return d.radius; })
+                       .style("fill", function(d) { return d.color; })
+                       .style("fill-opacity", "0.3")
+                       ;
+rects.on("mousedown", function(d,i) {
+                    // Set main window to corresponding type
+                    this_location= String(window.location);
+                    this_location=this_location.replace(/\?.*/g,"");
+//                    this_location= window.location.replace("\?.*"g,"");
+//                    if(typeof this_location === 'undefined'){
+//                        this_location=window.location;
+//                    }
+                    
+                    this_location=this_location+"?goto="+states[i+1]["state"];
+                    window.location=this_location;
+});
+
+                       
+var the_labels = containerState.selectAll("svg")
+                          .data(jsonFoci)
+                          .enter()
+                    .append("svg:text")
+                         .attr("id", function(d) { return d.id;})
+                         .text(function(d) { return d.label;})
+                       .attr("dx", function (d,i) { return d.x_axis;})
+                       .attr("dy", function (d,i) { return d.y_axis+120;})
+                         .style("fill",function(d) { return "white";})
+                         .style("font-family","'nyt-franklin','Arial'")
+                         .style("font-weight","200")
+                         .style("color","#ddd")
+                         .style("font-size","20px");
+                         
+
+refresh_circles();
+
+    
+
+
+function refresh_circles2() { 
+    var circle2 = circle.data(force.nodes(), function(d) { return d.id;});
+    circle2.enter().append("circle")
+    .attr("class","a_circle")
+    .attr("r", function(d) { return d.radius; })
+    .style("fill", function(d) { return d.color; })
+    .call(force.drag);
+    //  circle2.exit().remove();
+};
+
+
+
+function refresh_circles() { 
+  circle = svg.selectAll("circle")
+    .data(nodes)
+  .enter().append("circle")
+    .attr("class","a_circle")
+    .attr("r", function(d) { return d.radius; })
+    .style("fill", function(d) { return d.color; })
+    .call(force.drag);
+};
+
+
+
+
+function tick(e) {
+  circle
+  d3.selectAll(".a_circle")
+//org      .each(gravity(.2 * e.alpha))
+      .each(gravity(.05 * e.alpha))
+      .each(collide(.4))
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+}
+
+
+
+// Move nodes toward cluster focus.
+function gravity(alpha) {
+  return function(d) {
+    d.y += (d.cy - d.y) * alpha;  // d.cy is focal point
+    d.x += (d.cx - d.x) * alpha;  // d.cx is forcal point
+  };
+}
+
+
+
+// Resolve collisions between nodes.
+function collide(alpha) {
+  var quadtree = d3.geom.quadtree(nodes);
+  return function(d) {
+    var r = d.radius + maxRadius + padding,
+        nx1 = d.x - r,
+        nx2 = d.x + r,
+        ny1 = d.y - r,
+        ny2 = d.y + r;
+    quadtree.visit(function(quad, x1, y1, x2, y2) {
+      if (quad.point && (quad.point !== d)) {
+        var x = d.x - quad.point.x,
+            y = d.y - quad.point.y,
+            l = Math.sqrt(x * x + y * y),
+            r = d.radius + quad.point.radius + (d.color !== quad.point.color) * padding;
+        if (l < r) {
+          l = (l - r) / l * alpha;
+          d.x -= x *= l;
+          d.y -= y *= l;
+          quad.point.x += x;
+          quad.point.y += y;
+        }
+      }
+      return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+    });
+  };
+}
+
+// On interval, update foci cx,cy
+//ADD NODE
+setInterval(function(){
+    nodes.forEach(function(d,i) {
+//old random move        if (i==3) {
+//old random move            d.cx=x_range(Math.floor(Math.random() * m_clusters));
+//old random move        }
+    });
+ 
+   add_node(0);
+   refresh_circles2();
+   force.start(); 
+
+}, 2000);
+
+
+
+
+//REDIRECT NODE
+setInterval(function(){
+    redirect_node();
+}, 1230);
+    
+//REMOVE NODE
+setInterval(function(){
+    if (nodes.length>24) {
+       //NO REMOVE  remove_node();
+       //NO REMOVE  refresh_circles2();
+    };
+}, 4400);
+
+//Refresh force
+setInterval(function(){
+   force.stop(); 
+}, 20000);
+
+
+
+
+
+</script>
+</div>
+
 
 
 

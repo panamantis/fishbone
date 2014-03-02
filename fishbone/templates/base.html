@@ -1,93 +1,70 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{% block title %}fishbone{% endblock %}</title>
-
-    <meta name="title" content="fishbone">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Fav and touch icons -->
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-57x57-precomposed.png">
-
-    <!-- Humans -->
-    <link type="text/plain" rel="author" href="/humans.txt">
-
-    <!-- Le styles -->
-    {% if debug %}
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
-    <link href="{% static 'css/normalize.css' %}" rel="stylesheet">
-    <link href="{% static 'css/theme.css' %}" rel="stylesheet">
-    <link href="{% static 'css/theme-responsive.css' %}" rel="stylesheet">
-    {% else %}
-    <link href="{% static 'css/main.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/normalize.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/theme.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/theme-responsive.min.css' %}" rel="stylesheet">
-    {% endif %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- JC. Modified CSS location and all images to /images -->
+<!-- @@@JC@@@ -->
 
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="{% static 'js/lib/html5shiv/html5shiv.js' %}"></script>
-    <![endif]-->
-    <!-- Modernizr script must be kept in the head tag and not to be loaded with require.js -->
-    <script src="{% static 'js/lib/modernizr-2.6.2.min.js' %}"></script>
-  </head>
+<!-- @@@JC   Think for mediagenerator function??@@@ -->
+{% load media %}
 
-  <body>
-    {% block body-content %}
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-    {% block navbar %}
-      {% include 'navbar.html'%} <!-- /Alternative navigation -->
-    {% endblock navbar %}
 
-    <div class="container">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<title>Panamantis</title>
+	{% block title %}
+	Put title here
+	{% endblock %}
+	
+    {% block css %}
+      {% include_media 'main.css' %}
+    {% endblock %}
 
-      <!-- Main hero unit for a primary marketing message or call to action -->
-      <div class="hero-unit">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-      </div>
+    {% block js %}
+      {% include_media 'main.js' %}
+    {% endblock %}
 
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div>
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-       </div>
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div>
-      </div>
+    {% block preload_js %}
+    {% endblock %}
 
-      <hr>
+    {% block extra-head %}{% endblock %}
+	
+<!-- @@@JC -Style sheet from fireworks @@@ -->
+	<link rel="stylesheet" type="text/css" href="/css/Page1.css" media="all" />
+	
+	<!--[if IE]>
+	<style type="text/css" media="all">.borderitem {border-style: solid;}</style>
+	<![endif]-->
+	
+	{% block analytics %}
+<!-- @@@JC - Put analytics here or uncomment this to see where missing @@@ -->
+	{% endblock %}
+	
+	
+<!-- @@@JC -  Overwrite above CSS with app specific changes @@@ -->
+	{% block addl_styles %}
+	{% endblock %}
 
-      <footer>
-        <p>&copy; fishbone 2013</p>
-      </footer>
 
-    </div> <!-- /container -->
+</head> 
 
-    {% endblock body-content %}
 
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script data-main="{% static 'js/main.compiled' %}" src="{% static 'js/require.js' %}"></script>
 
-  </body>
+
+
+
+<body>
+
+<!-- @@@JC - wrapper centers webpage 960 @@@ -->
+<div id="wrapper">
+
+	{% block content %}
+	Put html body here
+	{% endblock %}
+
+</div>
+
+
+</body>
 </html>
