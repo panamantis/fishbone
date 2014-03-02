@@ -1,0 +1,554 @@
+
+
+<HTML> 
+     <HEAD> 
+         <TITLE> Page Title </TITLE> 
+         <script src="/static/js/d3.v3.3.10.min.js"></script>
+         
+         <style type="text/css">
+
+body {
+  background: #161616;
+  position: relative;
+  color: #aaa;
+  margin: 0;
+  min-width: 970px;
+}
+</style>
+
+         
+     </HEAD> 
+     <BODY> 
+
+<script>
+
+
+the_people_url="/static/js/people.json";
+var the_people_data;
+d3.json(the_people_url, function(json) {
+    the_people_data=json.results;
+});
+
+the_apps_url="/static/js/apps.json";
+var the_apps_data;
+d3.json(the_apps_url, function(json) {
+    var the_apps_data=json.results;
+});
+the_dataset_url="/static/js/data1000.json";
+var the_dataset_data;
+d3.json(the_dataset_url, function(json) {
+    the_dataset_data=json.results;
+});
+the_teams_url="/static/js/teams.json";
+var the_teams_data;
+d3.json(the_teams_url, function(json) {
+    the_teams_data=json.results;
+});
+
+
+
+var width = 800,
+    height = 500,
+    padding = 6, // separation between nodes
+    maxRadius = 12;
+
+var n = 25, // total number of nodes
+    m_clusters = 9; // number of distinct clusters
+
+var color = d3.scale.category10()
+    .domain(d3.range(m_clusters));
+
+var x_range = d3.scale.ordinal()
+    .domain(d3.range(m_clusters))
+    .rangePoints([0, width], 1);
+console.info("Starting...");
+
+
+
+// Hard define stations
+
+var l_states=[]
+l_states.push("");             //0 watch as i generates here
+l_states.push("Ideas");             //1
+l_states.push("Problems");             //2
+l_states.push("Campaigns");             //3
+l_states.push("Teams");             //4
+l_states.push("Apps");             //5
+l_states.push("Users");             //6
+l_states.push("New Market");             //7
+l_states.push("Target Market");             //9
+
+var sta={};
+sta["Ideas"]=1;
+sta["Problems"]=2;
+sta["Campaigns"]=3;
+sta["Teams"]=4;
+sta["Apps"]=5;
+sta["Users"]=6;
+sta["New Market"]=7;
+sta["Target Market"]=8;
+
+var states=[]
+c=0;
+while (c<m_clusters) {
+    s={};
+    s["state"]=l_states[c];
+    s["count"]= 0;
+    
+    s["cx"]= x_range(c);
+    
+    if (c>sta["Users"]) {
+        s["cx"]= x_range(c)-10;
+        s["cy"]= (height / 2+100)+(c*5);
+        if (c==sta["New Market"]) { 
+            s["cy"]= (height / 2)+140;
+        }
+        if (c==sta["Target Market"]) { 
+            s["cy"]= (height / 2)+110;
+        }
+    }
+    else {
+        s["cy"]= height / 2+(c*15);
+    }
+    
+    
+    states.push(s);
+    c=c+1;
+};
+
+
+function add_node(a_target) {
+
+    if (nodes.length<70) {
+    
+    n=n+1;
+    console.log("Adding node now: "+n);
+    if (a_target==0) {
+        var i = Math.floor(Math.random() * m_clusters);
+        
+            // Steer
+            //90% of time put into ideas
+            rbranch=Math.random();
+            if (rbranch<.8) { //80%
+                i=sta["Ideas"];
+            }
+            else if (rbranch<.9) { //10%
+                i=sta["Problems"];
+            }
+            
+            
+    }
+    else {
+        var i=a_target;
+    };
+    
+    
+    v = (i + 1) / m_clusters * -Math.log(Math.random());
+    
+    
+    // Add node logic
+    
+    // Log
+    states[i]["count"]+=1;
+    
+    console.log("Target: "+l_states[i]+" at: "+i+" internally "+states[i]["state"]+" is at "+states[i]["count"]);
+    
+    the_dict= {
+         radius: 7,
+         color: "grey",
+         cx: states[i]["cx"],
+         cy: states[i]["cy"], //target
+         id:i+"_new_"+Math.random(),
+         type:"null",
+         dest:l_states[i],
+         life:10000,
+    };
+    
+    nodes.push(the_dict);
+    }// End check nodes
+    
+};
+
+
+function redirect_node() {
+
+    //Hard coded logic
+    
+    //1. Ideas to campaigns,teams, problems, apps
+    
+    
+    // Campaign accepts (from ideas)
+    if (Math.random()<.2) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Ideas") {
+                d.dest="Campaigns";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from idea to campaign");
+            };
+        };
+      });
+    }
+    // Campaing accepts from problems
+    if (Math.random()<.15) { 
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Problems") {
+                d.dest="Campaigns";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Problem to Campaign");
+            };
+        };
+      });
+    }
+    
+    
+    // Teams accepts from Campaigns
+    if (Math.random()<.1) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Campaigns") {
+                d.dest="Teams";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Campaigns to teams");
+            };
+        };
+      });
+    }
+    
+    
+    // Apps accepts from Teams
+    if (Math.random()<.1) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Teams") {
+                d.dest="Apps";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Teams to Apps");
+            };
+        };
+      });
+    }
+    
+    // Users accepts from Apps
+    if (Math.random()<.2) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Apps") {
+                d.dest="Users";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Apps to Users");
+            };
+        };
+      });
+      // FORCE ADD NODES TO SIMULATE MULTIPLICATION EFFECT
+      add_node(sta["Users"]);
+      
+    }
+    
+    // New Market accepts from Users
+    if (Math.random()<.03) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Users") {
+                d.dest="New Market";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Users to New Market");
+            };
+        };
+      });
+    }
+    
+    // Target Market accepts from Users
+    if (Math.random()<.03) { //to campaigns 50% of time
+      var found=false;
+      nodes.forEach(function(d) {
+        if (!(found)) {
+            if (d.dest=="Users") {
+                d.dest="Target Market";
+                d.cx=states[sta[d.dest]]["cx"];
+                d.cy=states[sta[d.dest]]["cy"];
+                found=true;
+                console.log("Move from Users to Target Market");
+            };
+        };
+      });
+    }
+    
+
+};
+
+
+
+
+
+function remove_node() {
+    n=n-1;
+    console.log("Removing node now: "+n);
+    var i = Math.floor(Math.random() * m_clusters);
+    nodes.splice(i,1);
+    
+    //MUST ALSO REMOVE FROM CIRCLE WITH REFRESH
+    
+   //  node = node.data(force.nodes(), function(d) { return d.id;});
+  //   node.enter().append("circle").attr("class", function(d) { return "node " + d.id; }).attr("r", 8);
+  //   node.exit().remove();
+    
+    
+};
+
+function get_node_dict(i,v) {
+   the_dict= {
+    radius: Math.sqrt(v) * maxRadius,
+    color: color(i),
+    cx: states[i]["cx"],
+    cy: states[i]["cy"], //target
+    id:i+"_org",
+    type:"null",
+    dest:"null",
+    life:10000,
+  };
+  
+  if (i<1) {
+    the_dict.radius=0;
+  }
+  
+  return the_dict;
+};
+
+var nodes = d3.range(n).map(function() {
+  var i = Math.floor(Math.random() * m_clusters),
+      v = (i + 1) / m_clusters * -Math.log(Math.random());
+      
+  return get_node_dict(i,v);
+});
+
+var force = d3.layout.force()
+    .nodes(nodes)
+    .size([width, height])
+    .gravity(0)
+    .charge(0)
+    .on("tick", tick)
+    .start();
+
+//function refresh_forces() {
+//    force.start();
+//};
+
+
+ 
+ var svg_width = window.innerWidth;
+ var svg_height = window.innerHeight;
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", svg_width)
+    .attr("height", svg_height);
+    
+var circle = svg.selectAll("circle"); //movement circles
+    
+
+// SETUP CONTAINERS                                   
+ // Get size of window
+ var nodes9=[]
+ b = {id: "xxx",x:0,y:0,value:"0"}
+ nodes9.push(b);
+ var containerState=svg.selectAll('svg')
+                .data(nodes9)
+            .enter().append("g")
+                .attr("id","containerState");
+
+
+
+
+c=0
+var jsonFoci = [];
+while (c<8) {
+    c=c+1;
+    the_d={ "x_axis": states[c]["cx"]-25, "y_axis": states[c]["cy"]+40, "radius": 50, "color" : "white","position":"fixed","type":"state_foci","label":l_states[c],"id":c+"_j" };
+    jsonFoci.push(the_d);
+}
+                         
+//var jsonFoci = [
+//   { "x_axis": 30, "y_axis": 0, "radius": 50, "color" : "green","position":"fixed","type":"state_foci","label":"Start","id":"0" },
+//   { "x_axis": 70, "y_axis": 0, "radius": 50, "color" : "purple","position":"fixed","type":"state_foci","label":"M1","id":"1"},
+//   { "x_axis": 120, "y_axis": 0, "radius": 50, "color" : "yellow","position":"fixed","type":"state_foci","label":"M2","id":"2"},
+//   { "x_axis": 170, "y_axis": 0, "radius": 50, "color" : "red"  ,"position":"fixed","type":"state_foci","label":"End","id":"3"}];
+   
+var jsonFoci_size=8;//sta.length;
+
+ var rects = containerState.selectAll("rect")
+                       .data(jsonFoci)
+                       .enter()
+                   .append("rect")
+                       .attr("x", function (d,i) { return d.x_axis;})
+                       .attr("y", function (d,i) { return d.y_axis;})
+//                       .attr("x", function (d,i) { 
+//                            separation=svg_width/(jsonFoci_size+1);
+//                            return (i+1)*separation; })
+//                       .attr("y", function (d) { return svg_height/2; })
+                       .attr("width", function (d) { return d.radius; })
+                       .attr("height", function (d) { return d.radius; })
+                       .style("fill", function(d) { return d.color; })
+                       .style("fill-opacity", "0.3");
+                       
+var the_labels = containerState.selectAll("svg")
+                          .data(jsonFoci)
+                          .enter()
+                    .append("svg:text")
+                         .attr("id", function(d) { return d.id;})
+                         .text(function(d) { return d.label;})
+                       .attr("dx", function (d,i) { return d.x_axis;})
+                       .attr("dy", function (d,i) { return d.y_axis+120;})
+                         .style("fill",function(d) { return "white";})
+                         .style("font-size","20px");
+                         
+
+refresh_circles();
+
+    
+
+
+function refresh_circles2() { 
+    var circle2 = circle.data(force.nodes(), function(d) { return d.id;});
+    circle2.enter().append("circle")
+    .attr("class","a_circle")
+    .attr("r", function(d) { return d.radius; })
+    .style("fill", function(d) { return d.color; })
+    .call(force.drag);
+    //  circle2.exit().remove();
+};
+
+
+
+function refresh_circles() { 
+  circle = svg.selectAll("circle")
+    .data(nodes)
+  .enter().append("circle")
+    .attr("class","a_circle")
+    .attr("r", function(d) { return d.radius; })
+    .style("fill", function(d) { return d.color; })
+    .call(force.drag);
+};
+
+
+
+
+function tick(e) {
+  circle
+  d3.selectAll(".a_circle")
+//org      .each(gravity(.2 * e.alpha))
+      .each(gravity(.05 * e.alpha))
+      .each(collide(.4))
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+}
+
+
+
+// Move nodes toward cluster focus.
+function gravity(alpha) {
+  return function(d) {
+    d.y += (d.cy - d.y) * alpha;  // d.cy is focal point
+    d.x += (d.cx - d.x) * alpha;  // d.cx is forcal point
+  };
+}
+
+
+
+// Resolve collisions between nodes.
+function collide(alpha) {
+  var quadtree = d3.geom.quadtree(nodes);
+  return function(d) {
+    var r = d.radius + maxRadius + padding,
+        nx1 = d.x - r,
+        nx2 = d.x + r,
+        ny1 = d.y - r,
+        ny2 = d.y + r;
+    quadtree.visit(function(quad, x1, y1, x2, y2) {
+      if (quad.point && (quad.point !== d)) {
+        var x = d.x - quad.point.x,
+            y = d.y - quad.point.y,
+            l = Math.sqrt(x * x + y * y),
+            r = d.radius + quad.point.radius + (d.color !== quad.point.color) * padding;
+        if (l < r) {
+          l = (l - r) / l * alpha;
+          d.x -= x *= l;
+          d.y -= y *= l;
+          quad.point.x += x;
+          quad.point.y += y;
+        }
+      }
+      return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+    });
+  };
+}
+
+// On interval, update foci cx,cy
+//ADD NODE
+setInterval(function(){
+    nodes.forEach(function(d,i) {
+//old random move        if (i==3) {
+//old random move            d.cx=x_range(Math.floor(Math.random() * m_clusters));
+//old random move        }
+    });
+ 
+   add_node(0);
+   refresh_circles2();
+   force.start(); 
+
+}, 2000);
+
+
+
+
+//REDIRECT NODE
+setInterval(function(){
+     redirect_node();
+}, 1230);
+    
+//REMOVE NODE
+setInterval(function(){
+    if (nodes.length>24) {
+//REMOVE       remove_node();
+       refresh_circles2();
+    };
+}, 4400);
+
+//Refresh force
+setInterval(function(){
+   force.stop(); 
+}, 20000);
+
+
+
+
+</script>
+
+
+     </BODY> 
+     
+     
+     
+</HTML>
+
+
+
